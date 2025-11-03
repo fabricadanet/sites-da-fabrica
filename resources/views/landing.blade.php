@@ -157,11 +157,9 @@
                 <a href="#features" class="text-gray-600 hover:text-blue-500 transition">Recursos</a>
                 <a href="#planos" class="text-gray-600 hover:text-blue-500 transition">Planos</a>
                 <a href="#como-funciona" class="text-gray-600 hover:text-blue-500 transition">Como Funciona</a>
-                <button class="btn-primary" onclick="scrollToSection('cta')">Começar Agora</button>
+                <a href={{route('register')}} class="btn-primary" onclick="scrollToSection('cta')">Começar Agora</a>
             </div>
-            <button class="md:hidden text-gray-600">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
+           
         </nav>
     </header>
 
@@ -370,9 +368,9 @@
             </p>
             
             <div class="flex gap-4 justify-center flex-wrap">
-                <button class="bg-white text-blue-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition transform hover:scale-105">
+                <a href={{route('register')}} class="bg-white text-blue-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition transform hover:scale-105">
                     <i class="fas fa-star mr-2"></i> Começar Grátis (14 dias)
-                </button>
+                </a>
                 <button class="border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition transform hover:scale-105">
                     <i class="fas fa-calendar mr-2"></i> Agendar Demo
                 </button>
