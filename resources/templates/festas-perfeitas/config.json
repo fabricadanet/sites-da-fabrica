@@ -1,0 +1,56 @@
+{
+  "config": {
+    "nome": "Festas Perfeitas",
+    "logo": "https://placehold.co/150x50?text=Festas+Perfeitas",
+    "cores": {
+      "primaria": "#ec4899",
+      "secundaria": "#f59e0b"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Serviços", "href": "#servicos" },
+    { "text": "Galeria", "href": "#galeria" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Transformamos Seus Sonhos em Realidade",
+      "descricao": "Planejamento e organização de eventos inesquecíveis. Casamentos, aniversários, formaturas e muito mais!",
+      "banner": "https://placehold.co/600x400?text=Eventos+Festas"
+    },
+    "servicos": {
+      "titulo": "Nossos Serviços",
+      "descricao": "Pacotes completos para todos os tipos de eventos",
+      "itens": [
+        { "nome": "Casamentos", "descricao": "Cerimônia e recepção completa", "icone": "💍", "preco": "15.000" },
+        { "nome": "Aniversários", "descricao": "Festas infantis e adultos", "icone": "🎂", "preco": "3.000" },
+        { "nome": "Formaturas", "descricao": "Bailes e cerimônias", "icone": "🎓", "preco": "8.000" },
+        { "nome": "Eventos Corporativos", "descricao": "Confraternizações e congressos", "icone": "💼", "preco": "5.000" },
+        { "nome": "Festas Temáticas", "descricao": "Halloween, Natal, Réveillon", "icone": "🎭", "preco": "4.000" },
+        { "nome": "Buffet Completo", "descricao": "Comidas e bebidas", "icone": "🍽️", "preco": "2.500" }
+      ]
+    },
+    "galeria": {
+      "titulo": "Eventos Realizados",
+      "imagens": [
+        "https://placehold.co/400x300?text=Casamento",
+        "https://placehold.co/400x300?text=Aniversário",
+        "https://placehold.co/400x300?text=Formatura",
+        "https://placehold.co/400x300?text=Corporativo",
+        "https://placehold.co/400x300?text=Festa+Infantil",
+        "https://placehold.co/400x300?text=Buffet",
+        "https://placehold.co/400x300?text=Decoração",
+        "https://placehold.co/400x300?text=Cerimônia"
+      ]
+    },
+    "contato": {
+      "titulo": "Vamos Planejar Seu Evento?",
+      "descricao": "Entre em contato e receba um orçamento personalizado em até 24 horas!"
+    }
+  },
+  "whatsapp": {
+    "numero": "5551999999999",
+    "mensagem": "Olá! Gostaria de um orçamento para meu evento."
+  }
+}

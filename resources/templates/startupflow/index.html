@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Institucional - Empresa Exemplo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    body {
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    /* Botões modernos */
+    .btn-primaria {
+      background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+      color: white;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-primaria::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--cor-secundaria) 0%, var(--cor-primaria) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+      border-radius: inherit;
+    }
+    .btn-primaria:hover::after { opacity: 1; }
+    .btn-primaria:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+    
+    /* Blob animado de fundo */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: blob 7s infinite;
+    }
+    @keyframes blob {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+    
+    /* Cards flutuantes com sombra */
+    .float-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .float-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    
+    /* Animação de fade in no scroll */
+    .fade-in-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .fade-in-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Ícones animados */
+    .icon-bounce {
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Gradiente de texto */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Badge com pulso */
+    .pulse-badge {
+      position: relative;
+      display: inline-block;
+    }
+    .pulse-badge::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      background: var(--cor-primaria);
+      animation: pulse-ring 2s infinite;
+      z-index: -1;
+    }
+    @keyframes pulse-ring {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.3); }
+      100% { opacity: 0; transform: scale(1); }
+    }
+    
+    /* Modal moderno */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+    }
+    .modal-content {
+      background: white;
+      margin: 3% auto;
+      padding: 0;
+      border-radius: 24px;
+      max-width: 600px;
+      box-shadow: 0 25px 100px rgba(0,0,0,0.3);
+      overflow: hidden;
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .close {
+      float: right;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--cor-primaria);
+      transition: all 0.3s;
+    }
+    .close:hover { transform: rotate(90deg); }
+    
+    /* WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse-whatsapp 2s infinite;
+    }
+    .whatsapp-float:hover {
+      background-color: #20ba5a;
+      transform: scale(1.1);
+      box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.6);
+    }
+    @keyframes pulse-whatsapp {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-float svg { width: 35px; height: 35px; }
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+    .whatsapp-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 8px solid transparent;
+      border-left-color: white;
+    }
+    
+    /* Navbar transparente */
+    .navbar-transparent {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(20px);
+    }
+  </style>
+</head>
+<body style="--cor-primaria:#6366f1; --cor-secundaria:#4f46e5; --cor-fundo:#f0f9ff;">
+
+  <!-- Header com transparência -->
+  <header class="fixed w-full top-0 z-40 navbar-transparent">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img id="logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10">
+        <h1 id="nome-empresa" class="font-bold text-xl gradient-text"></h1>
+      </div>
+      <nav class="hidden md:block">
+        <ul id="menu" class="flex gap-8 items-center"></ul>
+      </nav>
+      <button id="abrir-carrinho" class="btn-primaria px-6 py-3 rounded-full font-semibold">
+        🛒 <span id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="pt-20">
+    <!-- Hero com blobs -->
+    <section id="home" class="relative py-32 overflow-hidden">
+      <div class="blob" style="width: 500px; height: 500px; background: var(--cor-primaria); top: -200px; left: -100px;"></div>
+      <div class="blob" style="width: 400px; height: 400px; background: var(--cor-secundaria); bottom: -100px; right: -50px; animation-delay: 2s;"></div>
+      
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-block pulse-badge mb-6">
+            <span class="bg-gradient-to-r from-[var(--cor-primaria)] to-[var(--cor-secundaria)] text-white px-6 py-2 rounded-full text-sm font-bold">
+              ✨ Nova Geração
+            </span>
+          </div>
+          <h2 id="titulo-home" class="text-6xl md:text-7xl font-bold mb-6 leading-tight"></h2>
+          <p id="descricao-home" class="text-xl md:text-2xl text-gray-600 mb-10"></p>
+          <div class="flex gap-4 justify-center flex-wrap">
+            <a href="#produtos" class="btn-primaria px-8 py-4 rounded-full font-semibold text-lg">
+              Começar Agora →
+            </a>
+            <a href="#contato" class="bg-gray-100 hover:bg-gray-200 px-8 py-4 rounded-full font-semibold text-lg transition-all">
+              Falar com Vendas
+            </a>
+          </div>
+        </div>
+      </div>
+      <img id="banner" class="hidden" alt="Banner">
+    </section>
+
+    <!-- Stats -->
+    <section class="py-16 bg-gradient-to-r from-[var(--cor-primaria)] to-[var(--cor-secundaria)]">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-8 text-center text-white">
+          <div class="fade-in-scroll">
+            <div class="text-5xl font-bold mb-2">1000+</div>
+            <div class="text-lg opacity-90">Clientes Satisfeitos</div>
+          </div>
+          <div class="fade-in-scroll" style="transition-delay: 0.1s;">
+            <div class="text-5xl font-bold mb-2">99%</div>
+            <div class="text-lg opacity-90">Taxa de Sucesso</div>
+          </div>
+          <div class="fade-in-scroll" style="transition-delay: 0.2s;">
+            <div class="text-5xl font-bold mb-2">24/7</div>
+            <div class="text-lg opacity-90">Suporte Ativo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quem Somos -->
+    <section id="quem-somos" class="py-24 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-16 fade-in-scroll">
+          <h2 id="titulo-quem" class="text-5xl font-bold mb-6 gradient-text"></h2>
+          <p id="descricao-quem" class="text-xl text-gray-600"></p>
+        </div>
+        <div id="equipe" class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Produtos -->
+    <section id="produtos" class="py-24" style="background-color: var(--cor-fundo);">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-16 fade-in-scroll">
+          <h2 id="titulo-produtos" class="text-5xl font-bold mb-6 gradient-text"></h2>
+          <p id="descricao-produtos" class="text-xl text-gray-600"></p>
+        </div>
+        <div id="lista-produtos" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-gradient-to-r from-[var(--cor-primaria)] to-[var(--cor-secundaria)] text-white">
+      <div class="container mx-auto px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-5xl mb-6 icon-bounce">🚀</div>
+          <h3 class="text-4xl md:text-5xl font-bold mb-6">Pronto para Decolar?</h3>
+          <p class="text-xl mb-8 opacity-90">Junte-se a milhares de empresas que já transformaram seus negócios.</p>
+          <a href="#contato" class="inline-block bg-white text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all">
+            Começar Gratuitamente
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-24 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-12 fade-in-scroll">
+          <h2 id="titulo-contato" class="text-5xl font-bold mb-6 gradient-text"></h2>
+          <p id="descricao-contato" class="text-xl text-gray-600"></p>
+        </div>
+        <form class="max-w-2xl mx-auto float-card p-10">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <input type="text" placeholder="Nome" class="w-full border-2 border-gray-200 p-4 rounded-xl focus:border-[var(--cor-primaria)] outline-none transition-all">
+            <input type="email" placeholder="E-mail" class="w-full border-2 border-gray-200 p-4 rounded-xl focus:border-[var(--cor-primaria)] outline-none transition-all">
+          </div>
+          <textarea placeholder="Mensagem" rows="5" class="w-full border-2 border-gray-200 p-4 rounded-xl mb-6 focus:border-[var(--cor-primaria)] outline-none transition-all"></textarea>
+          <button type="submit" class="btn-primaria w-full px-8 py-4 rounded-xl font-bold text-lg">Enviar Mensagem</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal-carrinho" class="modal">
+      <div class="modal-content">
+        <div class="p-8">
+          <span class="close" id="fechar-carrinho">&times;</span>
+          <h2 class="text-3xl font-bold mb-6 gradient-text">Carrinho de Compras</h2>
+          <div id="itens-carrinho" class="mb-6"></div>
+          <button id="finalizar-compra" class="btn-primaria px-8 py-4 rounded-xl font-semibold text-lg w-full">Finalizar Compra</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- WhatsApp -->
+    <a href="https://wa.me/5551999999999?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." 
+       target="_blank" 
+       class="whatsapp-float" 
+       aria-label="Fale conosco no WhatsApp">
+      <span class="whatsapp-tooltip">Fale conosco!</span>
+      <svg viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16.002 0C7.174 0 0 7.174 0 16c0 2.835.747 5.607 2.174 8.049L.055 31.643l7.842-2.056C10.29 31.109 13.086 32 16.002 32c8.828 0 16-7.174 16-16S24.83 0 16.002 0zm9.477 23.203c-.39 1.096-1.931 2.008-3.162 2.272-.841.178-1.938.321-5.638-1.21-4.738-1.964-7.786-6.74-8.022-7.053-.23-.314-1.896-2.522-1.896-4.81 0-2.29 1.198-3.417 1.625-3.881.427-.464.932-.58 1.242-.58.31 0 .621.003.893.016.286.014.669-.109.996.73.327.84 1.125 2.745 1.225 2.945.1.2.167.434.033.748-.133.314-.2.509-.396.781-.197.273-.414.608-.591.817-.197.231-.403.481-.173.944.23.464.996 1.646 2.136 2.665 1.468 1.313 2.704 1.72 3.088 1.913.384.193.607.161.83-.097.223-.258.96-1.12 1.218-1.505.258-.384.515-.321.866-.193.351.128 2.228 1.05 2.612 1.24.384.193.64.289.736.45.097.161.097.92-.293 2.016z"/>
+      </svg>
+    </a>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6 text-center">
+      <img id="footer-logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10 mx-auto mb-4 brightness-0 invert">
+      <p>&copy; <span id="ano"></span> <span id="footer-nome" class="font-bold"></span>. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+     const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`)
+      .then(res => res.json())
+      .then(data => {
+        document.body.style.setProperty('--cor-primaria', data.config.cores.primaria);
+        document.body.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+        document.body.style.setProperty('--cor-fundo', data.config.cores.fundo);
+
+        document.getElementById('nome-empresa').textContent = data.config.nome;
+        document.getElementById('footer-nome').textContent = data.config.nome;
+        document.getElementById('ano').textContent = new Date().getFullYear();
+        document.getElementById('logo').src = data.config.logo;
+        document.getElementById('footer-logo').src = data.config.logo;
+
+        const menu = document.getElementById('menu');
+        data.menu.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href='${item.href}' class='font-semibold text-gray-700 hover:text-[var(--cor-primaria)] transition-colors'>${item.text}</a>`;
+          menu.appendChild(li);
+        });
+
+        document.getElementById('banner').src = data.pages.home.banner;
+        document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+        document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+
+        document.getElementById('titulo-quem').textContent = data.pages.quem_somos.titulo;
+        document.getElementById('descricao-quem').textContent = data.pages.quem_somos.descricao;
+        const equipeDiv = document.getElementById('equipe');
+        data.pages.quem_somos.equipe.forEach((m, idx) => {
+          const card = document.createElement('div');
+          card.className = 'float-card p-6 text-center fade-in-scroll';
+          card.style.transitionDelay = `${idx * 0.1}s`;
+          card.innerHTML = `
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--cor-primaria)] to-[var(--cor-secundaria)] flex items-center justify-center text-white text-2xl font-bold">
+              ${m.nome.charAt(0)}
+            </div>
+            <h3 class='font-bold text-xl mb-1'>${m.nome}</h3>
+            <p class='text-gray-600'>${m.cargo}</p>`;
+          equipeDiv.appendChild(card);
+        });
+
+        document.getElementById('titulo-produtos').textContent = data.pages.produtos.titulo;
+        document.getElementById('descricao-produtos').textContent = data.pages.produtos.descricao;
+        const produtosDiv = document.getElementById('lista-produtos');
+        data.pages.produtos.itens.forEach((p, idx) => {
+          const card = document.createElement('div');
+          card.className = 'float-card p-8 fade-in-scroll';
+          card.style.transitionDelay = `${idx * 0.1}s`;
+          card.innerHTML = `
+            <div class="w-16 h-16 bg-gradient-to-br from-[var(--cor-primaria)] to-[var(--cor-secundaria)] rounded-2xl flex items-center justify-center mb-6">
+              <span class="text-3xl">🚀</span>
+            </div>
+            <h3 class='font-bold text-2xl mb-3'>${p.nome}</h3>
+            <p class='text-gray-600 mb-6'>${p.descricao}</p>
+            <div class="flex items-center justify-between">
+              <span class='font-bold text-2xl gradient-text'>R$ ${p.preco}</span>
+              <button class='btn-primaria px-6 py-3 rounded-xl font-semibold'>Adicionar</button>
+            </div>`;
+          card.querySelector('button').addEventListener('click', () => adicionarAoCarrinho(p));
+          produtosDiv.appendChild(card);
+        });
+
+        document.getElementById('titulo-contato').textContent = data.pages.contato.titulo;
+        document.getElementById('descricao-contato').textContent = data.pages.contato.descricao;
+      });
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function atualizarCarrinho(){
+      const itens = document.getElementById('itens-carrinho');
+      const badge = document.getElementById('cart-count');
+      badge.textContent = carrinho.length;
+      
+      itens.innerHTML = '';
+      if(carrinho.length === 0){
+        itens.innerHTML = '<p class="text-center text-gray-600 py-8">Seu carrinho está vazio</p>';
+      } else {
+        carrinho.forEach((i, idx)=>{
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center border-b border-gray-200 py-4';
+          div.innerHTML = `
+            <div><p class="font-semibold">${i.nome}</p><p class="text-sm text-gray-600">R$ ${i.preco}</p></div>
+            <button class='text-red-600 hover:text-red-800 font-semibold transition-colors' onclick='removerItem(${idx})'>Remover</button>`;
+          itens.appendChild(div);
+        });
+        const total = carrinho.reduce((s,v)=>s + parseFloat(v.preco),0).toFixed(2);
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'text-right font-bold text-2xl mt-4 gradient-text';
+        totalDiv.textContent = `Total: R$ ${total}`;
+        itens.appendChild(totalDiv);
+      }
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    function adicionarAoCarrinho(produto){
+      carrinho.push(produto);
+      atualizarCarrinho();
+      abrirCarrinho();
+    }
+
+    function removerItem(index){
+      carrinho.splice(index,1);
+      atualizarCarrinho();
+    }
+
+    document.getElementById('finalizar-compra').addEventListener('click', ()=>{
+      if(carrinho.length === 0){ alert('Carrinho vazio!'); return; }
+      alert('Compra finalizada com sucesso! Total: R$ '+carrinho.reduce((s,v)=>s+parseFloat(v.preco),0).toFixed(2));
+      carrinho=[];
+      atualizarCarrinho();
+      fecharCarrinho();
+    });
+
+    const modal = document.getElementById('modal-carrinho');
+    const btnAbrir = document.getElementById('abrir-carrinho');
+    const btnFechar = document.getElementById('fechar-carrinho');
+
+    function abrirCarrinho(){ modal.style.display='block'; atualizarCarrinho(); }
+    function fecharCarrinho(){ modal.style.display='none'; }
+
+    btnAbrir.onclick = abrirCarrinho;
+    btnFechar.onclick = fecharCarrinho;
+    window.onclick = function(event){ if(event.target == modal){ fecharCarrinho(); } }
+
+    atualizarCarrinho();
+    
+    // Scroll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-scroll').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

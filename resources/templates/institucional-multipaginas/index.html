@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escritório de Advocacia</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    body { font-family: 'Times New Roman', serif; }
+    
+    .btn-primaria {
+      background-color: var(--cor-primaria);
+      color: white;
+      transition: all 0.3s;
+      border: 2px solid var(--cor-primaria);
+    }
+    .btn-primaria:hover {
+      background-color: white;
+      color: var(--cor-primaria);
+    }
+    
+    .area-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 30px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      border-left: 4px solid var(--cor-primaria);
+    }
+    .area-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+    }
+    
+    .advogado-card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+    .advogado-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .depoimento-card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      border-left: 4px solid var(--cor-secundaria);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--cor-primaria);
+    }
+    
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+    .whatsapp-float svg { width: 35px; height: 35px; }
+  </style>
+</head>
+<body style="--cor-primaria:#1a365d; --cor-secundaria:#2c5282; --cor-fundo:#f7fafc;">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-6 py-5">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <img id="logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-14">
+          <div class="border-l-2 pl-4" style="border-color: var(--cor-primaria);">
+            <h1 id="nome-empresa" class="font-bold text-xl" style="color: var(--cor-primaria);"></h1>
+            <p class="text-xs text-gray-600">Advocacia & Consultoria Jurídica</p>
+          </div>
+        </div>
+        <nav class="hidden md:block">
+          <ul id="menu" class="flex gap-8"></ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="py-20" style="background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);">
+      <div class="container mx-auto px-6 text-white">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 id="titulo-home" class="text-5xl font-bold mb-6 leading-tight"></h2>
+            <p id="descricao-home" class="text-xl mb-8 opacity-90"></p>
+            <a href="#contato" class="inline-block bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all">
+              Solicitar Consulta
+            </a>
+          </div>
+          <div class="hidden md:block">
+            <img id="banner" src="https://placehold.co/600x400?text=Advocacia" alt="Banner" class="rounded-lg shadow-2xl">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-5xl font-bold mb-2" style="color: var(--cor-primaria);">30+</div>
+            <div class="text-gray-600">Anos de Experiência</div>
+          </div>
+          <div>
+            <div class="text-5xl font-bold mb-2" style="color: var(--cor-primaria);">1.500+</div>
+            <div class="text-gray-600">Casos Solucionados</div>
+          </div>
+          <div>
+            <div class="text-5xl font-bold mb-2" style="color: var(--cor-primaria);">98%</div>
+            <div class="text-gray-600">Taxa de Êxito</div>
+          </div>
+          <div>
+            <div class="text-5xl font-bold mb-2" style="color: var(--cor-primaria);">24/7</div>
+            <div class="text-gray-600">Atendimento</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Áreas de Atuação -->
+    <section id="areas" class="py-20" style="background-color: var(--cor-fundo);">
+      <div class="container mx-auto px-6">
+        <h2 id="titulo-areas" class="text-4xl font-bold text-center mb-4 section-title" style="color: var(--cor-primaria);"></h2>
+        <p id="descricao-areas" class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto"></p>
+        <div id="lista-areas" class="grid md:grid-cols-3 gap-8"></div>
+      </div>
+    </section>
+
+    <!-- Equipe -->
+    <section id="equipe" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 id="titulo-equipe" class="text-4xl font-bold text-center mb-12 section-title" style="color: var(--cor-primaria);"></h2>
+        <div id="lista-equipe" class="grid md:grid-cols-4 gap-8"></div>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section id="depoimentos" class="py-20" style="background-color: var(--cor-fundo);">
+      <div class="container mx-auto px-6">
+        <h2 id="titulo-depoimentos" class="text-4xl font-bold text-center mb-12 section-title" style="color: var(--cor-primaria);"></h2>
+        <div id="lista-depoimentos" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-5xl mx-auto">
+          <h2 id="titulo-contato" class="text-4xl font-bold text-center mb-4 section-title" style="color: var(--cor-primaria);"></h2>
+          <p id="descricao-contato" class="text-xl text-gray-600 text-center mb-12"></p>
+          
+          <div class="grid md:grid-cols-2 gap-12">
+            <!-- Informações de Contato -->
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" style="background-color: var(--cor-primaria);">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">Endereço</h3>
+                  <p id="endereco" class="text-gray-600"></p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" style="background-color: var(--cor-primaria);">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">Telefone</h3>
+                  <p id="telefone" class="text-gray-600"></p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" style="background-color: var(--cor-primaria);">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">E-mail</h3>
+                  <p id="email" class="text-gray-600"></p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" style="background-color: var(--cor-primaria);">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">Horário</h3>
+                  <p id="horario" class="text-gray-600"></p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Formulário -->
+            <form class="space-y-4">
+              <input type="text" placeholder="Nome completo" class="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-[var(--cor-primaria)] outline-none transition-all" required>
+              <input type="email" placeholder="E-mail" class="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-[var(--cor-primaria)] outline-none transition-all" required>
+              <input type="tel" placeholder="Telefone" class="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-[var(--cor-primaria)] outline-none transition-all" required>
+              <select class="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-[var(--cor-primaria)] outline-none transition-all" required>
+                <option value="">Selecione a área de interesse</option>
+                <option>Direito Empresarial</option>
+                <option>Direito Tributário</option>
+                <option>Direito Trabalhista</option>
+                <option>Direito Civil</option>
+                <option>Direito de Família</option>
+                <option>Direito do Consumidor</option>
+              </select>
+              <textarea placeholder="Descreva brevemente seu caso" rows="4" class="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-[var(--cor-primaria)] outline-none transition-all" required></textarea>
+              <button type="submit" class="btn-primaria w-full px-6 py-4 rounded-lg font-semibold text-lg">Enviar Solicitação</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20jurídica." target="_blank" class="whatsapp-float">
+      <svg viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16.002 0C7.174 0 0 7.174 0 16c0 2.835.747 5.607 2.174 8.049L.055 31.643l7.842-2.056C10.29 31.109 13.086 32 16.002 32c8.828 0 16-7.174 16-16S24.83 0 16.002 0zm9.477 23.203c-.39 1.096-1.931 2.008-3.162 2.272-.841.178-1.938.321-5.638-1.21-4.738-1.964-7.786-6.74-8.022-7.053-.23-.314-1.896-2.522-1.896-4.81 0-2.29 1.198-3.417 1.625-3.881.427-.464.932-.58 1.242-.58.31 0 .621.003.893.016.286.014.669-.109.996.73.327.84 1.125 2.745 1.225 2.945.1.2.167.434.033.748-.133.314-.2.509-.396.781-.197.273-.414.608-.591.817-.197.231-.403.481-.173.944.23.464.996 1.646 2.136 2.665 1.468 1.313 2.704 1.72 3.088 1.913.384.193.607.161.83-.097.223-.258.96-1.12 1.218-1.505.258-.384.515-.321.866-.193.351.128 2.228 1.05 2.612 1.24.384.193.64.289.736.45.097.161.097.92-.293 2.016z"/>
+      </svg>
+    </a>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 text-white" style="background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="font-bold text-xl mb-4">Sobre o Escritório</h3>
+          <p class="opacity-90">Tradição e excelência em serviços jurídicos há mais de três décadas.</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4">Links Rápidos</h3>
+          <ul class="space-y-2 opacity-90">
+            <li><a href="#areas" class="hover:underline">Áreas de Atuação</a></li>
+            <li><a href="#equipe" class="hover:underline">Nossa Equipe</a></li>
+            <li><a href="#contato" class="hover:underline">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4">Redes Sociais</h3>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white border-opacity-20 pt-8 text-center opacity-90">
+        <p>&copy; <span id="ano"></span> <span id="footer-nome"></span>. Todos os direitos reservados.</p>
+        <p class="text-sm mt-2">OAB/SP 123.456 | Advocacia com ética e excelência</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+     const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`).then(res => res.json()).then(data => {
+      document.body.style.setProperty('--cor-primaria', data.config.cores.primaria);
+      document.body.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+      document.body.style.setProperty('--cor-fundo', data.config.cores.fundo);
+      
+      document.getElementById('nome-empresa').textContent = data.config.nome;
+      document.getElementById('footer-nome').textContent = data.config.nome;
+      document.getElementById('ano').textContent = new Date().getFullYear();
+      document.getElementById('logo').src = data.config.logo;
+
+      const menu = document.getElementById('menu');
+      data.menu.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href='${item.href}' class='text-gray-700 hover:text-[var(--cor-primaria)] font-semibold transition-colors'>${item.text}</a>`;
+        menu.appendChild(li);
+      });
+
+      document.getElementById('banner').src = data.pages.home.banner;
+      document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+      document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+
+      document.getElementById('titulo-areas').textContent = data.pages.areas.titulo;
+      document.getElementById('descricao-areas').textContent = data.pages.areas.descricao;
+      const areasDiv = document.getElementById('lista-areas');
+      data.pages.areas.itens.forEach(a => {
+        const card = document.createElement('div');
+        card.className = 'area-card';
+        card.innerHTML = `
+          <div class="text-4xl mb-4">${a.icone}</div>
+          <h3 class="font-bold text-xl mb-3">${a.nome}</h3>
+          <p class="text-gray-600">${a.descricao}</p>`;
+        areasDiv.appendChild(card);
+      });
+
+      document.getElementById('titulo-equipe').textContent = data.pages.equipe.titulo;
+      const equipeDiv = document.getElementById('lista-equipe');
+      data.pages.equipe.membros.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'advogado-card';
+        card.innerHTML = `
+          <img src='${m.foto}' alt='${m.nome}' class='w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4' style='border-color: var(--cor-primaria);'>
+          <h3 class='font-bold text-lg mb-1'>${m.nome}</h3>
+          <p class='text-sm mb-1' style='color: var(--cor-secundaria);'>${m.cargo}</p>
+          <p class='text-sm text-gray-600 mb-1'>${m.especialidade}</p>
+          <p class='text-xs text-gray-500'>${m.oab}</p>`;
+        equipeDiv.appendChild(card);
+      });
+
+      document.getElementById('titulo-depoimentos').textContent = data.pages.depoimentos.titulo;
+      const depoimentosDiv = document.getElementById('lista-depoimentos');
+      data.pages.depoimentos.itens.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'depoimento-card';
+        card.innerHTML = `
+          <p class='text-gray-700 mb-4 italic'>"${d.texto}"</p>
+          <div class='font-bold'>${d.nome}</div>
+          <div class='text-sm text-gray-600'>${d.empresa}</div>`;
+        depoimentosDiv.appendChild(card);
+      });
+
+      document.getElementById('titulo-contato').textContent = data.pages.contato.titulo;
+      document.getElementById('descricao-contato').textContent = data.pages.contato.descricao;
+      document.getElementById('endereco').textContent = data.pages.contato.endereco;
+      document.getElementById('telefone').textContent = data.pages.contato.telefone;
+      document.getElementById('email').textContent = data.pages.contato.email;
+      document.getElementById('horario').textContent = data.pages.contato.horario;
+    });
+  </script>
+</body>
+</html>

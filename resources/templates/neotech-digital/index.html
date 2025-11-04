@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Institucional - Empresa Exemplo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    /* Aplicar cores do JSON */
+    body { background-color: #0f172a; color: #e2e8f0; }
+    
+    .btn-primaria { 
+      background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+      color: white; 
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primaria::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: left 0.5s;
+    }
+    .btn-primaria:hover::before { left: 100%; }
+    .btn-primaria:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+    
+    .btn-secundaria { background-color: var(--cor-secundaria); color: white; transition: all 0.3s; }
+    .btn-secundaria:hover { transform: scale(1.05); }
+    
+    /* Efeito Neon */
+    .neon-text {
+      text-shadow: 0 0 10px var(--cor-primaria), 0 0 20px var(--cor-primaria), 0 0 30px var(--cor-primaria);
+    }
+    
+    .neon-border {
+      border: 2px solid var(--cor-primaria);
+      box-shadow: 0 0 10px var(--cor-primaria), inset 0 0 10px rgba(139, 92, 246, 0.2);
+    }
+    
+    /* Cards com efeito 3D */
+    .card-3d {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      transition: all 0.4s;
+      position: relative;
+    }
+    .card-3d::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .card-3d:hover::before { opacity: 1; }
+    .card-3d:hover {
+      transform: translateY(-15px) rotateX(5deg);
+      box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* Animações de partículas */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .float { animation: float 3s ease-in-out infinite; }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
+    }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    
+    /* Grid de fundo */
+    .grid-bg {
+      background-image: 
+        linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    
+    /* Modal */
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 50; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.9); 
+      backdrop-filter: blur(10px);
+    }
+    .modal-content { 
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      margin: 5% auto; 
+      padding: 40px; 
+      border-radius: 20px; 
+      max-width: 600px;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 0 50px rgba(139, 92, 246, 0.3);
+    }
+    .close { 
+      float: right; 
+      font-size: 2rem; 
+      cursor: pointer; 
+      color: var(--cor-primaria); 
+      transition: all 0.3s;
+    }
+    .close:hover { transform: rotate(180deg) scale(1.2); }
+    
+    /* Inputs modernos */
+    input, textarea {
+      background: rgba(30, 41, 59, 0.5);
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      color: #e2e8f0;
+      transition: all 0.3s;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--cor-primaria);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+      outline: none;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #64748b;
+    }
+    
+    /* Botão flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse-whatsapp 2s infinite;
+    }
+    
+    .whatsapp-float:hover {
+      background-color: #20ba5a;
+      transform: scale(1.1);
+      box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.6);
+    }
+    
+    
+    @keyframes pulse-whatsapp {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+    
+    .whatsapp-float svg {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .whatsapp-tooltip {
+      position: absolute;
+      left: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(139, 92, 246, 0.5);
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+    }
+    
+    .whatsapp-tooltip::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 8px solid transparent;
+      border-right-color: var(--cor-primaria);
+    }
+  </style>
+</head>
+<body style="--cor-primaria:#8b5cf6; --cor-secundaria:#7c3aed; --cor-fundo:#0f172a;" class="font-sans">
+
+  <!-- Header futurista -->
+  <header id="header" class="fixed w-full top-0 z-40 backdrop-blur-md bg-slate-900/80 border-b border-purple-500/20">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="pulse-glow rounded-lg p-2">
+          <img id="logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10">
+        </div>
+        <h1 id="nome-empresa" class="font-bold text-xl neon-text"></h1>
+      </div>
+      <nav class="hidden md:block">
+        <ul id="menu" class="flex gap-6 items-center"></ul>
+      </nav>
+      <button id="abrir-carrinho" class="btn-primaria px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 font-semibold">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span id="cart-count" class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="pt-20">
+    <!-- Hero Section com efeito futurista -->
+    <section id="home" class="relative py-32 grid-bg overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
+      
+      <!-- Círculos decorativos -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl float"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 id="titulo-home" class="text-5xl md:text-7xl font-bold mb-6 neon-text leading-tight"></h2>
+          <p id="descricao-home" class="text-xl md:text-2xl mb-10 text-gray-300"></p>
+          <div class="flex gap-4 justify-center flex-wrap">
+            <a href="#produtos" class="btn-primaria px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center gap-2">
+              Explorar Produtos
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+            <a href="#contato" class="neon-border bg-transparent px-8 py-4 rounded-lg font-semibold text-lg hover:bg-purple-500/10 transition-all">
+              Fale Conosco
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <img id="banner" class="hidden" alt="Banner">
+    </section>
+
+    <!-- Quem Somos -->
+    <section id="quem-somos" class="py-20 relative">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 id="titulo-quem" class="text-4xl md:text-5xl font-bold mb-4 neon-text"></h2>
+          <p id="descricao-quem" class="text-xl text-gray-400 max-w-3xl mx-auto"></p>
+        </div>
+        <div id="equipe" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Produtos -->
+    <section id="produtos" class="py-20 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16">
+          <h2 id="titulo-produtos" class="text-4xl md:text-5xl font-bold mb-4 neon-text"></h2>
+          <p id="descricao-produtos" class="text-xl text-gray-400 max-w-3xl mx-auto"></p>
+        </div>
+        <div id="lista-produtos" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-20 relative">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 id="titulo-contato" class="text-4xl md:text-5xl font-bold mb-4 neon-text"></h2>
+          <p id="descricao-contato" class="text-xl text-gray-400"></p>
+        </div>
+        <form class="max-w-2xl mx-auto card-3d p-8 rounded-2xl">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <input type="text" placeholder="Seu nome" class="w-full p-4 rounded-lg">
+            <input type="email" placeholder="Seu e-mail" class="w-full p-4 rounded-lg">
+          </div>
+          <textarea placeholder="Sua mensagem" rows="5" class="w-full p-4 rounded-lg mb-6"></textarea>
+          <button type="submit" class="btn-primaria w-full px-6 py-4 rounded-lg font-semibold text-lg">
+            Enviar Mensagem
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Modal Carrinho -->
+    <div id="modal-carrinho" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-carrinho">&times;</span>
+        <h2 class="text-3xl font-bold mb-6 neon-text">Carrinho de Compras</h2>
+        <div id="itens-carrinho" class="mb-6"></div>
+        <div class="text-center">
+          <button id="finalizar-compra" class="btn-primaria px-8 py-4 rounded-lg font-semibold text-lg w-full">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5551999999999?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." 
+       target="_blank" 
+       class="whatsapp-float" 
+       aria-label="Fale conosco no WhatsApp">
+      <span class="whatsapp-tooltip">Fale conosco!</span>
+      <svg viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16.002 0C7.174 0 0 7.174 0 16c0 2.835.747 5.607 2.174 8.049L.055 31.643l7.842-2.056C10.29 31.109 13.086 32 16.002 32c8.828 0 16-7.174 16-16S24.83 0 16.002 0zm9.477 23.203c-.39 1.096-1.931 2.008-3.162 2.272-.841.178-1.938.321-5.638-1.21-4.738-1.964-7.786-6.74-8.022-7.053-.23-.314-1.896-2.522-1.896-4.81 0-2.29 1.198-3.417 1.625-3.881.427-.464.932-.58 1.242-.58.31 0 .621.003.893.016.286.014.669-.109.996.73.327.84 1.125 2.745 1.225 2.945.1.2.167.434.033.748-.133.314-.2.509-.396.781-.197.273-.414.608-.591.817-.197.231-.403.481-.173.944.23.464.996 1.646 2.136 2.665 1.468 1.313 2.704 1.72 3.088 1.913.384.193.607.161.83-.097.223-.258.96-1.12 1.218-1.505.258-.384.515-.321.866-.193.351.128 2.228 1.05 2.612 1.24.384.193.64.289.736.45.097.161.097.92-.293 2.016z"/>
+      </svg>
+    </a>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-purple-500/20 py-12 mt-20" style="background: linear-gradient(to top, #0f172a, #1e293b);">
+    <div class="container mx-auto px-6 text-center">
+      <div class="pulse-glow inline-block rounded-lg p-3 mb-4">
+        <img id="footer-logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10">
+      </div>
+      <p class="text-gray-400">&copy; <span id="ano"></span> <span id="footer-nome" class="neon-text"></span>. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Função para aplicar cores do JSON e preencher conteúdo
+      const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`)
+      .then(res => res.json())
+      .then(data => {
+        document.body.style.setProperty('--cor-primaria', data.config.cores.primaria);
+        document.body.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+        document.body.style.setProperty('--cor-fundo', data.config.cores.fundo);
+
+        document.getElementById('nome-empresa').textContent = data.config.nome;
+        document.getElementById('footer-nome').textContent = data.config.nome;
+        document.getElementById('ano').textContent = new Date().getFullYear();
+        document.getElementById('logo').src = data.config.logo;
+        document.getElementById('footer-logo').src = data.config.logo;
+
+        // Preencher menu
+        const menu = document.getElementById('menu');
+        data.menu.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href='${item.href}' class='font-medium text-gray-300 hover:text-[var(--cor-primaria)] transition-colors relative group'>
+            ${item.text}
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--cor-primaria)] group-hover:w-full transition-all duration-300"></span>
+          </a>`;
+          menu.appendChild(li);
+        });
+
+        // Home
+        document.getElementById('banner').src = data.pages.home.banner;
+        document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+        document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+
+        // Quem Somos
+        document.getElementById('titulo-quem').textContent = data.pages.quem_somos.titulo;
+        document.getElementById('descricao-quem').textContent = data.pages.quem_somos.descricao;
+        const equipeDiv = document.getElementById('equipe');
+        data.pages.quem_somos.equipe.forEach((m, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card-3d p-6 rounded-2xl text-center';
+          card.style.animationDelay = `${idx * 0.2}s`;
+          card.innerHTML = `
+            <div class="relative inline-block mb-4">
+              <img src='${m.foto}' alt='${m.nome}' class='w-32 h-32 mx-auto rounded-full object-cover neon-border'>
+              <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold pulse-glow" style="background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));">✓</div>
+            </div>
+            <h3 class='font-bold text-xl mb-1 text-white'>${m.nome}</h3>
+            <p class='text-gray-400'>${m.cargo}</p>`;
+          equipeDiv.appendChild(card);
+        });
+
+        // Produtos
+        document.getElementById('titulo-produtos').textContent = data.pages.produtos.titulo;
+        document.getElementById('descricao-produtos').textContent = data.pages.produtos.descricao;
+        const produtosDiv = document.getElementById('lista-produtos');
+        data.pages.produtos.itens.forEach((p, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card-3d p-6 rounded-2xl group';
+          card.style.animationDelay = `${idx * 0.2}s`;
+          card.innerHTML = `
+            <div class="overflow-hidden rounded-xl mb-4 neon-border">
+              <img src='${p.imagem}' alt='${p.nome}' class='w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500'>
+            </div>
+            <h3 class='font-bold text-xl mb-2 text-white'>${p.nome}</h3>
+            <p class='text-gray-400 mb-4'>${p.descricao}</p>
+            <div class="flex items-center justify-between">
+              <p class='font-bold text-2xl neon-text'>R$ ${p.preco}</p>
+              <button class='btn-primaria px-6 py-3 rounded-lg font-semibold'>Adicionar</button>
+            </div>`;
+          card.querySelector('button').addEventListener('click', () => adicionarAoCarrinho(p));
+          produtosDiv.appendChild(card);
+        });
+
+        // Contato
+        document.getElementById('titulo-contato').textContent = data.pages.contato.titulo;
+        document.getElementById('descricao-contato').textContent = data.pages.contato.descricao;
+      });
+
+    // Funções de carrinho
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function atualizarCarrinho(){
+      const itens = document.getElementById('itens-carrinho');
+      const badge = document.getElementById('cart-count');
+      badge.textContent = carrinho.length;
+      
+      itens.innerHTML = '';
+      if(carrinho.length === 0){
+        itens.innerHTML = '<p class="text-center text-gray-500 py-8">Seu carrinho está vazio</p>';
+      } else {
+        carrinho.forEach((i, idx)=>{
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center border-b border-purple-500/20 py-4';
+          div.innerHTML = `
+            <div>
+              <p class="font-semibold text-white">${i.nome}</p>
+              <p class="text-sm text-gray-400">R$ ${i.preco}</p>
+            </div>
+            <button class='text-red-400 hover:text-red-300 font-semibold transition-colors' onclick='removerItem(${idx})'>Remover</button>`;
+          itens.appendChild(div);
+        });
+        const total = carrinho.reduce((s,v)=>s + parseFloat(v.preco),0).toFixed(2);
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'text-right font-bold text-2xl mt-4 neon-text';
+        totalDiv.textContent = `Total: R$ ${total}`;
+        itens.appendChild(totalDiv);
+      }
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    function adicionarAoCarrinho(produto){
+      carrinho.push(produto);
+      atualizarCarrinho();
+      abrirCarrinho();
+    }
+
+    function removerItem(index){
+      carrinho.splice(index,1);
+      atualizarCarrinho();
+    }
+
+    document.getElementById('finalizar-compra').addEventListener('click', ()=>{
+      if(carrinho.length === 0){ alert('Carrinho vazio!'); return; }
+      alert('Compra finalizada com sucesso! Total: R$ '+carrinho.reduce((s,v)=>s+parseFloat(v.preco),0).toFixed(2));
+      carrinho=[];
+      atualizarCarrinho();
+      fecharCarrinho();
+    });
+
+    const modal = document.getElementById('modal-carrinho');
+    const btnAbrir = document.getElementById('abrir-carrinho');
+    const btnFechar = document.getElementById('fechar-carrinho');
+
+    function abrirCarrinho(){
+      modal.style.display='block';
+      atualizarCarrinho();
+    }
+    function fecharCarrinho(){ modal.style.display='none'; }
+
+    btnAbrir.onclick = abrirCarrinho;
+    btnFechar.onclick = fecharCarrinho;
+    window.onclick = function(event){ if(event.target == modal){ fecharCarrinho(); } }
+
+    atualizarCarrinho();
+  </script>
+
+</body>
+</html>

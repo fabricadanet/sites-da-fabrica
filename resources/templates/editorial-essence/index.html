@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Editorial Essence — Demo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    :root{ --prim:#dc2626; --bg:#fff7f7; --muted:#111827; }
+    body{ background:var(--bg); font-family: Georgia, serif; color:var(--muted);}
+    .mag-hero{ display:grid; grid-template-columns: 2fr 1fr; gap:20px; align-items:start; padding:2rem; }
+    .mag-card{ background:white; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.06);}
+    .badge{ background:var(--prim); color:white; padding:6px 10px; border-radius:6px; font-weight:800; display:inline-block; }
+    @media(max-width:768px){ .mag-hero{ grid-template-columns:1fr; } }
+    .whatsapp-float{position:fixed;left:30px;bottom:30px;background:#25D366;color:#fff;border-radius:12px;padding:12px 14px;z-index:60}
+  </style>
+</head>
+<body>
+
+  <header class="p-6 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <img id="logo" src="" alt="logo" class="h-10"/>
+      <div><h1 id="nome-empresa" class="text-2xl font-semibold"></h1><div class="text-sm text-gray-600">Revista digital e editorial</div></div>
+    </div>
+    <nav class="hidden md:flex gap-6">
+      <a href="#home">Home</a><a href="#quem-somos">História</a><a href="#produtos">Coleções</a><a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="mag-hero">
+      <div class="mag-card p-6">
+        <img id="banner" src="" alt="banner" class="w-full h-64 object-cover mb-4"/>
+        <span class="badge">Destaque</span>
+        <h2 id="titulo-home" class="text-3xl font-bold mt-3"></h2>
+        <p id="descricao-home" class="mt-2 text-gray-700"></p>
+      </div>
+      <aside class="space-y-4">
+        <div class="mag-card p-4">
+          <h3 class="font-bold">Novidades</h3>
+          <p class="text-sm text-gray-600">Últimas tendências editoriais</p>
+        </div>
+        <div class="mag-card p-4">
+          <h3 class="font-bold">Colunas</h3>
+          <p class="text-sm text-gray-600">Autores convidados</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="quem-somos" class="p-8 max-w-4xl mx-auto">
+      <h2 id="titulo-quem" class="text-2xl font-bold" style="color:var(--prim)"></h2>
+      <p id="descricao-quem" class="mt-2"></p>
+      <div id="equipe" class="grid md:grid-cols-3 gap-4 mt-6"></div>
+    </section>
+
+    <section id="produtos" class="p-8 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="titulo-produtos" class="text-2xl font-bold mb-3"></h2>
+        <p id="descricao-produtos" class="mb-6 text-gray-700"></p>
+        <div id="lista-produtos" class="grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <section id="contato" class="p-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 id="titulo-contato" class="text-2xl font-bold"></h2>
+        <p id="descricao-contato" class="mb-4"></p>
+        <form><input class="p-3 w-full mb-3" placeholder="Nome"/><input class="p-3 w-full mb-3" placeholder="E-mail"/><textarea class="p-3 w-full mb-3" placeholder="Sua proposta"></textarea><button class="px-4 py-2 bg-red-600 text-white font-bold">Enviar</button></form>
+      </div>
+    </section>
+  </main>
+
+  <a id="whatsapp-link" class="whatsapp-float" target="_blank" style="display:none;">WhatsApp</a>
+
+  <script>
+      const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`).then(r=>r.json()).then(data=>{
+      document.getElementById('logo').src = data.config.logo || '';
+      document.getElementById('nome-empresa').innerText = data.config.nome || '';
+      document.getElementById('banner').src = data.pages.home.banner || data.configuracoes_site.banner_placeholder;
+      document.getElementById('titulo-home').innerText = data.pages.home.titulo;
+      document.getElementById('descricao-home').innerText = data.pages.home.descricao;
+
+      document.getElementById('titulo-quem').innerText = data.pages.quem_somos.titulo;
+      document.getElementById('descricao-quem').innerText = data.pages.quem_somos.descricao;
+      const eq = document.getElementById('equipe');
+      (data.pages.quem_somos.equipe||[]).forEach(m=>{
+        const el=document.createElement('div'); el.className='text-center';
+        el.innerHTML=`<img src="${m.foto}" class="w-28 h-28 object-cover mx-auto rounded-full mb-2"/><div class="font-semibold">${m.nome}</div><div class="text-sm text-gray-600">${m.cargo}</div>`;
+        eq.appendChild(el);
+      });
+
+      document.getElementById('titulo-produtos').innerText = data.pages.produtos.titulo;
+      document.getElementById('descricao-produtos').innerText = data.pages.produtos.descricao;
+      const prods=document.getElementById('lista-produtos');
+      (data.pages.produtos.itens||[]).forEach(p=>{
+        const c=document.createElement('div'); c.className='mag-card p-4';
+        c.innerHTML=`<img src="${p.imagem}" class="w-full h-40 object-cover mb-3"/><h4 class="font-bold">${p.nome}</h4><p class="text-sm text-gray-600">${p.descricao}</p><div class="mt-2 font-semibold">R$ ${p.preco}</div>`;
+        prods.appendChild(c);
+      });
+
+      if(data.configuracoes_site && data.configuracoes_site.whatsapp){
+        const w=data.configuracoes_site.whatsapp; const a=document.getElementById('whatsapp-link');
+        a.href=`https://wa.me/${w.numero}?text=${encodeURIComponent(w.mensagem||'Olá')}`; a.style.display='inline-flex';
+      }
+    });
+  </script>
+</body>
+</html>
+

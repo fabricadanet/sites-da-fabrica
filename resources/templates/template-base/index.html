@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Institucional - Empresa Exemplo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    /* Aplicar cores do JSON aos botões */
+    .btn-primaria { background-color: var(--cor-primaria); color: white; }
+    .btn-primaria:hover { background-color: color-mix(in srgb, var(--cor-primaria) 80%, black); }
+    .btn-secundaria { background-color: var(--cor-secundaria); color: white; }
+    .btn-secundaria:hover { background-color: color-mix(in srgb, var(--cor-secundaria) 80%, black); }
+    /* Estilos para modal */
+    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+    .modal-content { background-color: var(--cor-fundo); margin: 10% auto; padding: 20px; border-radius: 8px; max-width: 500px; }
+    .close { float: right; font-size: 1.5rem; cursor: pointer; }
+  </style>
+</head>
+<body style="--cor-primaria:#2563eb; --cor-secundaria:#1e40af; --cor-fundo:#f9fafb;">
+
+  <header id="header" class="shadow p-4 flex items-center justify-between" style="background-color: var(--cor-fundo);">
+    <div class="flex items-center gap-2">
+      <img id="logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10">
+      <h1 id="nome-empresa" class="font-bold text-lg" style="color: var(--cor-primaria);"></h1>
+    </div>
+    <nav>
+      <ul id="menu" class="flex gap-4"></ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="p-8 text-center" style="background-color: var(--cor-fundo);">
+      <img id="banner" class="mx-auto mb-6 rounded-lg" alt="Banner">
+      <h2 id="titulo-home" class="text-2xl font-bold mb-2" style="color: var(--cor-primaria);"></h2>
+      <p id="descricao-home" class="text-gray-700"></p>
+    </section>
+
+    <section id="quem-somos" class="p-8" style="background-color: var(--cor-fundo);">
+      <h2 id="titulo-quem" class="text-2xl font-bold mb-4 text-center" style="color: var(--cor-primaria);"></h2>
+      <p id="descricao-quem" class="text-center mb-8"></p>
+      <div id="equipe" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="produtos" class="p-8" style="background-color: var(--cor-fundo);">
+      <h2 id="titulo-produtos" class="text-2xl font-bold mb-4 text-center" style="color: var(--cor-primaria);"></h2>
+      <p id="descricao-produtos" class="text-center mb-8"></p>
+      <div id="lista-produtos" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="carrinho" class="p-8 hidden" style="background-color: var(--cor-fundo);">
+      <h2 class="text-2xl font-bold mb-4 text-center" style="color: var(--cor-primaria);">Carrinho de Compras</h2>
+      <div id="itens-carrinho" class="max-w-2xl mx-auto bg-white p-4 rounded shadow"></div>
+      <div class="text-center mt-4">
+        <button id="finalizar-compra" class="btn-primaria px-6 py-2 rounded">Finalizar Compra</button>
+      </div>
+    </section>
+
+    <section id="contato" class="p-8 text-center" style="background-color: var(--cor-fundo);">
+      <h2 id="titulo-contato" class="text-2xl font-bold mb-4" style="color: var(--cor-primaria);"></h2>
+      <p id="descricao-contato" class="mb-6"></p>
+      <form class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+        <input type="text" placeholder="Seu nome" class="w-full border mb-3 p-2 rounded">
+        <input type="email" placeholder="Seu e-mail" class="w-full border mb-3 p-2 rounded">
+        <textarea placeholder="Mensagem" class="w-full border mb-3 p-2 rounded"></textarea>
+        <button type="submit" class="btn-primaria px-4 py-2 rounded">Enviar</button>
+      </form>
+    </section>
+
+  <button id="abrir-carrinho" class="btn-primaria px-4 py-2 rounded fixed top-4 right-4">Carrinho</button>
+
+    <div id="modal-carrinho" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-carrinho">&times;</span>
+        <h2 class="text-xl font-bold mb-4" style="color: var(--cor-primaria);">Carrinho de Compras</h2>
+        <div id="itens-carrinho" class="mb-4"></div>
+        <div class="text-center">
+          <button id="finalizar-compra" class="btn-primaria px-6 py-2 rounded">Finalizar Compra</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-white text-center p-4 mt-8" id="footer" style="background-color: var(--cor-secundaria);">
+    <p>&copy; <span id="ano"></span> <span id="footer-nome"></span>. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Função para aplicar cores do JSON e preencher conteúdo
+  const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`)
+      .then(res => res.json())
+      .then(data => {
+        document.body.style.setProperty('--cor-primaria', data.config.cores.primaria);
+        document.body.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+        document.body.style.setProperty('--cor-fundo', data.config.cores.fundo);
+
+        document.getElementById('nome-empresa').textContent = data.config.nome;
+        document.getElementById('footer-nome').textContent = data.config.nome;
+        document.getElementById('ano').textContent = new Date().getFullYear();
+        document.getElementById('logo').src = data.config.logo;
+
+        // Preencher menu
+        const menu = document.getElementById('menu');
+        data.menu.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href='${item.href}' class='hover:text-[var(--cor-primaria)]'>${item.text}</a>`;
+          menu.appendChild(li);
+        });
+
+        // Home
+        document.getElementById('banner').src = data.pages.home.banner;
+        document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+        document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+
+        // Quem Somos
+        document.getElementById('titulo-quem').textContent = data.pages.quem_somos.titulo;
+        document.getElementById('descricao-quem').textContent = data.pages.quem_somos.descricao;
+        const equipeDiv = document.getElementById('equipe');
+        data.pages.quem_somos.equipe.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 rounded-lg shadow text-center';
+          card.innerHTML = `<img src='${m.foto}' alt='${m.nome}' class='w-24 h-24 mx-auto rounded-full mb-3'>
+            <h3 class='font-bold'>${m.nome}</h3>
+            <p class='text-gray-600'>${m.cargo}</p>`;
+          equipeDiv.appendChild(card);
+        });
+
+        // Produtos
+        document.getElementById('titulo-produtos').textContent = data.pages.produtos.titulo;
+        document.getElementById('descricao-produtos').textContent = data.pages.produtos.descricao;
+        const produtosDiv = document.getElementById('lista-produtos');
+        data.pages.produtos.itens.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 rounded-lg shadow text-center';
+          card.innerHTML = `<img src='${p.imagem}' alt='${p.nome}' class='w-full h-40 object-cover mb-3 rounded'>
+            <h3 class='font-bold mb-1'>${p.nome}</h3>
+            <p class='text-gray-600 mb-2'>${p.descricao}</p>
+            <p class='font-semibold mb-3' style='color: var(--cor-primaria)'>R$ ${p.preco}</p>
+            <button class='btn-primaria px-4 py-2 rounded'>Adicionar ao Carrinho</button>`;
+          card.querySelector('button').addEventListener('click', () => adicionarAoCarrinho(p));
+          produtosDiv.appendChild(card);
+        });
+
+        // Contato
+        document.getElementById('titulo-contato').textContent = data.pages.contato.titulo;
+        document.getElementById('descricao-contato').textContent = data.pages.contato.descricao;
+      });
+
+
+    // Funções de carrinho com modal
+   let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function atualizarCarrinho(){
+      const itens = document.getElementById('itens-carrinho');
+      itens.innerHTML = '';
+      if(carrinho.length === 0){
+        itens.innerHTML = '<p class="text-center text-gray-600">Seu carrinho está vazio.</p>';
+      } else {
+        carrinho.forEach((i, idx)=>{
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center border-b py-2';
+          div.innerHTML = `<span>${i.nome} - R$ ${i.preco}</span><button class='text-red-600' onclick='removerItem(${idx})'>Remover</button>`;
+          itens.appendChild(div);
+        });
+        const total = carrinho.reduce((s,v)=>s + parseFloat(v.preco),0).toFixed(2);
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'text-right font-bold mt-2';
+        totalDiv.textContent = `Total: R$ ${total}`;
+        itens.appendChild(totalDiv);
+      }
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    function adicionarAoCarrinho(produto){
+      carrinho.push(produto);
+      atualizarCarrinho();
+      abrirCarrinho();
+    }
+
+    function removerItem(index){
+      carrinho.splice(index,1);
+      atualizarCarrinho();
+    }
+
+    document.getElementById('finalizar-compra').addEventListener('click', ()=>{
+      if(carrinho.length === 0){ alert('Carrinho vazio!'); return; }
+      alert('Compra finalizada com sucesso! Total: R$ '+carrinho.reduce((s,v)=>s+parseFloat(v.preco),0).toFixed(2));
+      carrinho=[];
+      atualizarCarrinho();
+      fecharCarrinho();
+    });
+
+    const modal = document.getElementById('modal-carrinho');
+    const btnAbrir = document.getElementById('abrir-carrinho');
+    const btnFechar = document.getElementById('fechar-carrinho');
+
+    function abrirCarrinho(){
+      modal.style.display='block';
+      atualizarCarrinho();
+    }
+    function fecharCarrinho(){ modal.style.display='none'; }
+
+    btnAbrir.onclick = abrirCarrinho;
+    btnFechar.onclick = fecharCarrinho;
+    window.onclick = function(event){ if(event.target == modal){ fecharCarrinho(); } }
+
+    atualizarCarrinho();
+  </script>
+
+</body>
+</html>

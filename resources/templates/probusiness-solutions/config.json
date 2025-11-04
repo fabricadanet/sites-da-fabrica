@@ -1,0 +1,52 @@
+{
+  "config": {
+    "nome": "ProBusiness Solutions",
+    "logo": "https://placehold.co/150x50?text=ProBusiness",
+    "cores": {
+      "primaria": "#0ea5e9",
+      "secundaria": "#0284c7",
+      "fundo": "#f8fafc"
+    }
+  },
+  "menu": [
+    { "text": "Home", "href": "#home" },
+    { "text": "Sobre", "href": "#quem-somos" },
+    { "text": "Serviços", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Excelência Empresarial em Cada Projeto",
+      "descricao": "Soluções corporativas personalizadas que impulsionam o crescimento sustentável do seu negócio.",
+      "banner": "https://placehold.co/1200x400?text=Corporativo"
+    },
+    "quem_somos": {
+      "titulo": "Conheça Nossos Especialistas",
+      "descricao": "Uma equipe multidisciplinar de profissionais dedicados a entregar resultados excepcionais.",
+      "equipe": [
+        { "nome": "Patricia Oliveira", "cargo": "CEO & Founder", "foto": "https://placehold.co/150?text=Patricia" },
+        { "nome": "Alexandre Rocha", "cargo": "CFO", "foto": "https://placehold.co/150?text=Alexandre" },
+        { "nome": "Camila Ferreira", "cargo": "Head de Operações", "foto": "https://placehold.co/150?text=Camila" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Nossos Serviços Premium",
+      "descricao": "Soluções empresariais completas desenvolvidas para maximizar eficiência e resultados.",
+      "itens": [
+        { "nome": "Consultoria Estratégica", "descricao": "Planejamento estratégico e governança corporativa para empresas em crescimento.", "imagem": "https://placehold.co/300x200?text=Estrategia", "preco": "2999.90" },
+        { "nome": "Transformação Digital", "descricao": "Modernização de processos e implementação de tecnologias corporativas.", "imagem": "https://placehold.co/300x200?text=Digital", "preco": "3499.90" },
+        { "nome": "Gestão de Projetos", "descricao": "Metodologias ágeis e gestão profissional de projetos complexos.", "imagem": "https://placehold.co/300x200?text=Projetos", "preco": "2499.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Entre em Contato",
+      "descricao": "Nossa equipe está pronta para entender suas necessidades e propor as melhores soluções."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x400?text=Banner+Corporativo",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true
+  }
+}

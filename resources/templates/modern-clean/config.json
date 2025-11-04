@@ -1,0 +1,52 @@
+{
+  "config": {
+    "nome": "Empresa Exemplo",
+    "logo": "https://placehold.co/150x50?text=Logo",
+   "cores": {
+      "primaria": "#2563eb",
+      "secundaria": "#1e40af",
+      "fundo": "#f9fafb"
+    } 
+  },
+  "menu": [
+    { "text": "Home", "href": "#home" },
+    { "text": "Quem Somos", "href": "#quem-somos" },
+    { "text": "Produtos", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Bem-vindo à Empresa Exemplo",
+      "descricao": "Soluções completas em tecnologia e inovação para o seu negócio.",
+      "banner": "https://placehold.co/1200x400?text=Banner+Principal"
+    },
+    "quem_somos": {
+      "titulo": "Quem Somos",
+      "descricao": "Somos uma empresa dedicada a entregar excelência em tecnologia e atendimento personalizado.",
+      "equipe": [
+        { "nome": "Maria Silva", "cargo": "CEO", "foto": "https://placehold.co/150?text=Maria" },
+        { "nome": "João Pereira", "cargo": "CTO", "foto": "https://placehold.co/150?text=Joao" },
+        { "nome": "Ana Costa", "cargo": "Gerente de Projetos", "foto": "https://placehold.co/150?text=Ana" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Produtos e Serviços",
+      "descricao": "Conheça nossa linha de produtos e serviços para potencializar seus resultados.",
+      "itens": [
+        { "nome": "Consultoria Tech", "descricao": "Consultoria especializada em transformação digital e inovação.", "imagem": "https://placehold.co/300x200?text=Consultoria", "preco": "499.90" },
+        { "nome": "Desenvolvimento Web", "descricao": "Sites e sistemas sob medida para empresas de todos os portes.", "imagem": "https://placehold.co/300x200?text=Web", "preco": "999.90" },
+        { "nome": "Suporte Técnico", "descricao": "Planos de suporte e manutenção preventiva com SLA garantido.", "imagem": "https://placehold.co/300x200?text=Suporte", "preco": "199.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Fale Conosco",
+      "descricao": "Entre em contato para solicitar um orçamento ou tirar suas dúvidas."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x400?text=Banner+Principal",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true
+  }
+}

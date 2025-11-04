@@ -1,0 +1,51 @@
+{
+  "config": {
+    "nome": "Silva & Advogados Associados",
+    "logo": "https://placehold.co/150x50?text=Silva+Advogados",
+    "cores": {
+      "primaria": "#1e40af",
+      "secundaria": "#1e3a8a"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Áreas de Atuação", "href": "#areas" },
+    { "text": "Equipe", "href": "#equipe" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Defesa dos Seus Direitos com Excelência",
+      "descricao": "Há mais de 20 anos prestando serviços jurídicos com ética, competência e compromisso com a justiça.",
+      "banner": "https://placehold.co/600x400?text=Justiça+Advocacia"
+    },
+    "areas": {
+      "titulo": "Áreas de Atuação",
+      "descricao": "Especialistas em diversas áreas do direito para atender todas as suas necessidades jurídicas",
+      "itens": [
+        { "nome": "Direito Civil", "descricao": "Contratos, indenizações, responsabilidade civil e ações de cobrança.", "icone": "⚖️" },
+        { "nome": "Direito Trabalhista", "descricao": "Defesa de trabalhadores e empresas em questões trabalhistas.", "icone": "💼" },
+        { "nome": "Direito de Família", "descricao": "Divórcios, pensões, guarda de filhos e inventários.", "icone": "👨‍👩‍👧" },
+        { "nome": "Direito Criminal", "descricao": "Defesa em processos criminais e habeas corpus.", "icone": "🛡️" },
+        { "nome": "Direito do Consumidor", "descricao": "Proteção dos direitos do consumidor e ações contra fornecedores.", "icone": "🛒" },
+        { "nome": "Direito Imobiliário", "descricao": "Compra, venda, locação e regularização de imóveis.", "icone": "🏠" }
+      ]
+    },
+    "equipe": {
+      "titulo": "Nossa Equipe",
+      "membros": [
+        { "nome": "Dr. Carlos Silva", "cargo": "Sócio-fundador", "oab": "OAB/RS 10.234", "foto": "https://placehold.co/150?text=Dr.Carlos" },
+        { "nome": "Dra. Maria Santos", "cargo": "Sócia", "oab": "OAB/RS 15.678", "foto": "https://placehold.co/150?text=Dra.Maria" },
+        { "nome": "Dr. João Oliveira", "cargo": "Advogado Associado", "oab": "OAB/RS 20.456", "foto": "https://placehold.co/150?text=Dr.João" }
+      ]
+    },
+    "contato": {
+      "titulo": "Agende Sua Consulta",
+      "descricao": "Estamos prontos para atender você. Entre em contato e agende uma consulta gratuita."
+    }
+  },
+  "whatsapp": {
+    "numero": "5551999999999",
+    "mensagem": "Olá! Preciso de uma consulta jurídica."
+  }
+}

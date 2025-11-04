@@ -1,0 +1,110 @@
+{
+  "config": {
+    "nome": "Sabor & Arte Restaurante",
+    "logo": "https://placehold.co/150x50?text=Sabor+Arte",
+    "cores": {
+      "primaria": "#d97706",
+      "secundaria": "#92400e",
+      "fundo": "#fffbeb"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Cardápio", "href": "#cardapio" },
+    { "text": "Especialidades", "href": "#especialidades" },
+    { "text": "Galeria", "href": "#galeria" },
+    { "text": "Reservas", "href": "#reservas" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Gastronomia que Encanta",
+      "descricao": "Pratos artesanais preparados com ingredientes frescos e muito carinho. Venha viver uma experiência gastronômica única!",
+      "banner": "https://placehold.co/600x400?text=Restaurante"
+    },
+    "cardapio": {
+      "titulo": "Nosso Cardápio",
+      "descricao": "Pratos preparados diariamente com ingredientes selecionados",
+      "categorias": [
+        {
+          "nome": "Entradas",
+          "pratos": [
+            { "nome": "Bruschetta ao Pesto", "descricao": "Pão italiano, tomate, manjericão e queijo", "preco": "28.90" },
+            { "nome": "Carpaccio de Salmão", "descricao": "Salmão fresco com molho de mostarda e alcaparras", "preco": "45.90" },
+            { "nome": "Tábua de Frios Premium", "descricao": "Seleção de queijos e frios especiais", "preco": "68.90" }
+          ]
+        },
+        {
+          "nome": "Pratos Principais",
+          "pratos": [
+            { "nome": "Risotto de Funghi", "descricao": "Arroz arbóreo com cogumelos variados", "preco": "65.90" },
+            { "nome": "Filé Mignon ao Molho Madeira", "descricao": "Acompanha batatas rústicas e legumes", "preco": "89.90" },
+            { "nome": "Salmão Grelhado", "descricao": "Com purê de mandioquinha e aspargos", "preco": "78.90" },
+            { "nome": "Massa ao Molho Pomodoro", "descricao": "Penne artesanal com molho de tomate fresco", "preco": "52.90" }
+          ]
+        },
+        {
+          "nome": "Sobremesas",
+          "pratos": [
+            { "nome": "Tiramisù da Casa", "descricao": "Tradicional italiano com café expresso", "preco": "24.90" },
+            { "nome": "Petit Gâteau", "descricao": "Bolo de chocolate com sorvete de creme", "preco": "28.90" },
+            { "nome": "Cheesecake de Frutas Vermelhas", "descricao": "Cremoso com calda especial", "preco": "26.90" }
+          ]
+        }
+      ]
+    },
+    "especialidades": {
+      "titulo": "Nossas Especialidades",
+      "descricao": "Pratos exclusivos que fazem do Sabor & Arte um lugar especial",
+      "itens": [
+        {
+          "nome": "Paella Valenciana",
+          "descricao": "Arroz com frutos do mar, frango e açafrão. Serve 2 pessoas.",
+          "preco": "145.00",
+          "imagem": "https://placehold.co/300x200?text=Paella",
+          "destaque": true
+        },
+        {
+          "nome": "Picanha Premium",
+          "descricao": "500g de picanha nobre com acompanhamentos especiais.",
+          "preco": "98.00",
+          "imagem": "https://placehold.co/300x200?text=Picanha",
+          "destaque": true
+        },
+        {
+          "nome": "Rodízio de Massas",
+          "descricao": "Massas artesanais com 5 molhos à escolha. Todos os domingos.",
+          "preco": "69.90",
+          "imagem": "https://placehold.co/300x200?text=Massas",
+          "destaque": false
+        }
+      ]
+    },
+    "galeria": {
+      "titulo": "Galeria de Fotos",
+      "imagens": [
+        "https://placehold.co/400x300?text=Ambiente+1",
+        "https://placehold.co/400x300?text=Prato+1",
+        "https://placehold.co/400x300?text=Chef",
+        "https://placehold.co/400x300?text=Ambiente+2",
+        "https://placehold.co/400x300?text=Prato+2",
+        "https://placehold.co/400x300?text=Sobremesa"
+      ]
+    },
+    "reservas": {
+      "titulo": "Faça Sua Reserva",
+      "descricao": "Reserve sua mesa e garanta uma experiência gastronômica inesquecível.",
+      "horario": "Terça a Domingo: 12h às 15h e 19h às 23h | Segunda: Fechado",
+      "endereco": "Rua Gastronômica, 123 - Centro - São Paulo/SP",
+      "telefone": "(11) 3500-0000"
+    }
+  },
+  "chef": {
+    "nome": "Chef André Martins",
+    "descricao": "Formado em gastronomia na França, com 15 anos de experiência em restaurantes premiados.",
+    "foto": "https://placehold.co/200?text=Chef+Andre"
+  },
+  "whatsapp": {
+    "numero": "5511999999999",
+    "mensagem": "Olá! Gostaria de fazer uma reserva."
+  }
+}

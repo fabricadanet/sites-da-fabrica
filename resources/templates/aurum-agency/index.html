@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Aurum Agency — Demo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    :root{ --gold:#d4af37; --bg:#0b0b0b; --muted:#f3f3f3;}
+    body{background:var(--bg); color:var(--muted); font-family: Georgia, serif;}
+    .hero { background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.8)); padding:4rem 2rem; }
+    .card { background: rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.12); padding:1.5rem; border-radius:12px; }
+    .btn-gold { background:transparent; border:2px solid var(--gold); color:var(--gold); padding:.6rem 1rem; font-weight:700;}
+    a.logo { display:flex; gap:12px; align-items:center; }
+    .whatsapp-float{position:fixed;right:30px;bottom:30px;background:var(--gold);color:#000;border-radius:12px;padding:12px 14px;z-index:60}
+  </style>
+</head>
+<body>
+
+  <header class="flex items-center justify-between p-6">
+    <div class="flex items-center gap-4">
+      <img id="logo" src="" alt="logo" class="h-10"/>
+      <div>
+        <div id="nome-empresa" class="text-2xl font-semibold"></div>
+        <div class="text-sm text-gray-400">Consultoria & Branding de luxo</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6">
+      <a id="nav-home">Início</a>
+      <a id="nav-sobre">Sobre</a>
+      <a id="nav-serv">Serviços</a>
+      <a id="nav-contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero text-center">
+      <img id="banner" src="" alt="banner" class="mx-auto w-full max-w-4xl h-72 object-cover rounded-lg mb-6"/>
+      <h1 id="titulo-home" class="text-5xl font-bold mb-2" style="color:var(--gold)"></h1>
+      <p id="descricao-home" class="max-w-3xl mx-auto text-lg text-gray-300"></p>
+      <div class="mt-6"><button class="btn-gold">Solicitar Atendimento</button></div>
+    </section>
+
+    <section id="quem-somos" class="p-10">
+      <div class="max-w-4xl mx-auto card">
+        <h2 id="titulo-quem" class="text-3xl mb-2" style="color:var(--gold)"></h2>
+        <p id="descricao-quem" class="text-gray-300"></p>
+        <div id="equipe" class="grid md:grid-cols-3 gap-6 mt-6"></div>
+      </div>
+    </section>
+
+    <section id="produtos" class="p-10">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="titulo-produtos" class="text-3xl mb-2" style="color:var(--gold)"></h2>
+        <p id="descricao-produtos" class="text-gray-300 mb-6"></p>
+        <div id="lista-produtos" class="grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <section id="contato" class="p-10">
+      <div class="max-w-3xl mx-auto card text-center">
+        <h2 id="titulo-contato" class="text-2xl mb-2" style="color:var(--gold)"></h2>
+        <p id="descricao-contato" class="text-gray-300 mb-4"></p>
+        <form id="form-contato" class="grid gap-3">
+          <input placeholder="Nome" class="p-3 bg-transparent border border-gray-700"/>
+          <input placeholder="E-mail" class="p-3 bg-transparent border border-gray-700"/>
+          <textarea placeholder="Mensagem" class="p-3 bg-transparent border border-gray-700"></textarea>
+          <button class="btn-gold">Enviar Mensagem</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- WhatsApp -->
+  <a id="whatsapp-link" class="whatsapp-float" target="_blank" style="display:none;">Fale conosco</a>
+
+  <script>
+      const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`).then(r=>r.json()).then(data=>{
+      const cores = data.config.cores;
+      document.getElementById('logo').src = data.config.logo || '';
+      document.getElementById('nome-empresa').innerText = data.config.nome || '';
+      document.getElementById('banner').src = data.pages.home.banner || data.configuracoes_site.banner_placeholder;
+      document.getElementById('titulo-home').innerText = data.pages.home.titulo;
+      document.getElementById('descricao-home').innerText = data.pages.home.descricao;
+
+      document.getElementById('titulo-quem').innerText = data.pages.quem_somos.titulo;
+      document.getElementById('descricao-quem').innerText = data.pages.quem_somos.descricao;
+      const eq = document.getElementById('equipe');
+      (data.pages.quem_somos.equipe||[]).forEach(m=>{
+        const d=document.createElement('div'); d.className='text-center';
+        d.innerHTML = `<img src="${m.foto}" alt="${m.nome}" class="w-28 h-28 rounded-full mx-auto mb-3 object-cover"/><div class="font-semibold">${m.nome}</div><div class="text-sm text-gray-400">${m.cargo}</div>`;
+        eq.appendChild(d);
+      });
+
+      document.getElementById('titulo-produtos').innerText = data.pages.produtos.titulo;
+      document.getElementById('descricao-produtos').innerText = data.pages.produtos.descricao;
+      const prods=document.getElementById('lista-produtos');
+      (data.pages.produtos.itens||[]).forEach(p=>{
+        const card=document.createElement('div'); card.className='card';
+        card.innerHTML=`<img src="${p.imagem}" alt="${p.nome}" class="w-full h-44 object-cover rounded-md mb-3"/><h3 class="font-bold">${p.nome}</h3><p class="text-sm text-gray-300">${p.descricao}</p><div class="mt-3 flex justify-between items-center"><div class="font-semibold">R$ ${p.preco}</div><button class="btn-gold" onclick='addToCart(${JSON.stringify(p)})'>Comprar</button></div>`;
+        prods.appendChild(card);
+      });
+
+      document.getElementById('titulo-contato').innerText = data.pages.contato.titulo;
+      document.getElementById('descricao-contato').innerText = data.pages.contato.descricao;
+
+      if(data.configuracoes_site && data.configuracoes_site.whatsapp){
+        const w = data.configuracoes_site.whatsapp;
+        const a = document.getElementById('whatsapp-link');
+        a.href = `https://wa.me/${w.numero}?text=${encodeURIComponent(w.mensagem||'Olá')}`;
+        a.style.display = 'inline-flex';
+      }
+    });
+
+    // small cart logic reused
+    let CART = [];
+    function addToCart(p){ CART.push(p); alert('Adicionado: '+p.nome); }
+  </script>
+</body>
+</html>
+

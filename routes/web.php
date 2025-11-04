@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\TemplatePreviewController;
 
 
 Route::get('/', LandingController::class . '@index')->name('landing');
@@ -25,6 +26,25 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+
+    // GEt view grid-templates
+    Route::get('/templates', [App\Http\Controllers\SiteController::class, 'templates'])->name('tenant.grid-templates');
+
+    Route::get('/preview-template/{slug}', [TemplatePreviewController::class, 'show'])
+    ->name('preview.template');
+    
+    Route::get('/preview-template/{slug}/config', function ($slug) {
+    $path = resource_path("templates/{$slug}/config.json");
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, ['Content-Type' => 'application/json']);
+});
+
+
     // Dentro de Route::middleware(['auth', 'verified'])->group(function () {
     // Sites
      Route::prefix('sites')->group(function () {
@@ -39,6 +59,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/{site:slug}/duplicate', [App\Http\Controllers\SiteController::class, 'duplicate'])->name('tenant.sites.duplicate');
         Route::delete('/{site:slug}', [App\Http\Controllers\SiteController::class, 'destroy'])->name('tenant.sites.destroy');
     });
+
+    Route::middleware(['auth'])->group(function () {
+    Route::post('/sites', [App\Http\Controllers\SiteController::class, 'store'])->name('sites.store');
+});
 
     // Páginas
     Route::prefix('sites/{site:slug}/pages')->group(function () {

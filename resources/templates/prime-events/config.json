@@ -1,0 +1,42 @@
+{
+  "config": {
+    "nome": "Prime Events",
+    "logo": "https://placehold.co/150x50?text=Prime+Events",
+    "cores": {
+      "primaria": "#0284c7",
+      "secundaria": "#0369a1"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Serviços", "href": "#servicos" },
+    { "text": "Diferenciais", "href": "#diferenciais" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Eventos Corporativos de Alto Padrão",
+      "descricao": "Especialistas em congressos, seminários, lançamentos e confraternizações empresariais."
+    },
+    "servicos": {
+      "titulo": "Soluções Completas",
+      "descricao": "Planejamento estratégico e execução impecável para seu evento corporativo",
+      "itens": [
+        { "nome": "Congressos e Seminários", "descricao": "Organização completa de grandes eventos com gestão de palestrantes, credenciamento e coffee breaks.", "icone": "🎤", "preco": "25.000" },
+        { "nome": "Lançamento de Produtos", "descricao": "Eventos memoráveis para apresentação de novos produtos e serviços ao mercado.", "icone": "🚀", "preco": "18.000" },
+        { "nome": "Convenções de Vendas", "descricao": "Motivação de equipes com palestras, dinâmicas e premiações.", "icone": "📊", "preco": "20.000" },
+        { "nome": "Confraternizações", "descricao": "Festas de fim de ano, comemorações e eventos de integração.", "icone": "🎉", "preco": "12.000" },
+        { "nome": "Feiras e Exposições", "descricao": "Montagem de estandes, gestão de expositores e infraestrutura completa.", "icone": "🏢", "preco": "35.000" },
+        { "nome": "Treinamentos", "descricao": "Espaços equipados para capacitações e workshops empresariais.", "icone": "📚", "preco": "8.000" }
+      ]
+    },
+    "contato": {
+      "titulo": "Solicite uma Proposta",
+      "descricao": "Preencha o formulário e nossa equipe entrará em contato em até 2 horas úteis"
+    }
+  },
+  "whatsapp": {
+    "numero": "5551999999999",
+    "mensagem": "Olá! Preciso de um orçamento para evento corporativo."
+  }
+}

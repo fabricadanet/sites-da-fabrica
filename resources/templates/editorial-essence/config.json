@@ -1,0 +1,56 @@
+{
+  "config": {
+    "nome": "StartupFlow",
+    "logo": "https://placehold.co/150x50?text=StartupFlow",
+    "cores": {
+      "primaria": "#6366f1",
+      "secundaria": "#4f46e5",
+      "fundo": "#f0f9ff"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Sobre", "href": "#quem-somos" },
+    { "text": "Planos", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Acelere Seu Crescimento com Tecnologia",
+      "descricao": "Plataforma completa para escalar seu negócio de forma inteligente e eficiente.",
+      "banner": "https://placehold.co/1200x600?text=Startup+Hero"
+    },
+    "quem_somos": {
+      "titulo": "Time de Inovadores",
+      "descricao": "Somos apaixonados por criar soluções que transformam ideias em realidade e impulsionam negócios.",
+      "equipe": [
+        { "nome": "Lucas Tech", "cargo": "CEO & Founder", "foto": "https://placehold.co/150?text=Lucas" },
+        { "nome": "Marina Dev", "cargo": "CTO", "foto": "https://placehold.co/150?text=Marina" },
+        { "nome": "Pedro Growth", "cargo": "Head of Growth", "foto": "https://placehold.co/150?text=Pedro" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Planos que Crescem com Você",
+      "descricao": "Escolha o plano ideal para seu momento e escale quando precisar.",
+      "itens": [
+        { "nome": "Starter", "descricao": "Perfeito para começar sua jornada com recursos essenciais.", "imagem": "https://placehold.co/300x200?text=Starter", "preco": "299.90" },
+        { "nome": "Growth", "descricao": "Para empresas em crescimento que precisam de mais poder.", "imagem": "https://placehold.co/300x200?text=Growth", "preco": "599.90" },
+        { "nome": "Enterprise", "descricao": "Solução completa com recursos ilimitados e suporte premium.", "imagem": "https://placehold.co/300x200?text=Enterprise", "preco": "1299.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Vamos Conversar?",
+      "descricao": "Nossa equipe está pronta para ajudar você a alcançar seus objetivos."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x600?text=Startup",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true,
+    "whatsapp": {
+      "numero": "5551999999999",
+      "mensagem": "Olá! Vim pelo StartupFlow e gostaria de conhecer os planos."
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "config": {
+    "nome": "Magazine Style Co",
+    "logo": "https://placehold.co/150x50?text=Magazine",
+    "cores": {
+      "primaria": "#e11d48",
+      "secundaria": "#be123c",
+      "fundo": "#fef2f2"
+    }
+  },
+  "menu": [
+    { "text": "Home", "href": "#home" },
+    { "text": "Sobre", "href": "#quem-somos" },
+    { "text": "Produtos", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Estilo e Sofisticação em Cada Detalhe",
+      "descricao": "Descubra uma nova forma de ver o mundo através de produtos cuidadosamente selecionados.",
+      "banner": "https://placehold.co/1200x800?text=Magazine+Hero"
+    },
+    "quem_somos": {
+      "titulo": "Nossa História",
+      "descricao": "Somos apaixonados por criar experiências memoráveis e conectar pessoas através do design excepcional.",
+      "equipe": [
+        { "nome": "Isabella Martins", "cargo": "Creative Director", "foto": "https://placehold.co/150?text=Isabella" },
+        { "nome": "Gabriel Alves", "cargo": "Art Director", "foto": "https://placehold.co/150?text=Gabriel" },
+        { "nome": "Sophia Costa", "cargo": "Brand Manager", "foto": "https://placehold.co/150?text=Sophia" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Coleção Exclusiva",
+      "descricao": "Produtos premium selecionados com cuidado para elevar seu estilo de vida.",
+      "itens": [
+        { "nome": "Design Premium", "descricao": "Projetos visuais que impressionam e convertem com excelência.", "imagem": "https://placehold.co/300x200?text=Design", "preco": "899.90" },
+        { "nome": "Branding Completo", "descricao": "Identidade visual completa para destacar sua marca no mercado.", "imagem": "https://placehold.co/300x200?text=Branding", "preco": "1899.90" },
+        { "nome": "Editorial Design", "descricao": "Publicações elegantes e impactantes para seu conteúdo.", "imagem": "https://placehold.co/300x200?text=Editorial", "preco": "1299.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Vamos Conversar",
+      "descricao": "Entre em contato e vamos criar algo extraordinário juntos."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x800?text=Magazine",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true,
+    "whatsapp": {
+      "numero": "5551999999999",
+      "mensagem": "Olá! Vim pelo Magazine Style e gostaria de conhecer a coleção exclusiva."
+    }
+  }
+}

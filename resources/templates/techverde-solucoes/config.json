@@ -1,0 +1,52 @@
+{
+  "config": {
+    "nome": "TechVerde Soluções",
+    "logo": "https://placehold.co/150x50?text=TechVerde",
+    "cores": {
+      "primaria": "#10b981",
+      "secundaria": "#059669",
+      "fundo": "#f0fdf4"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Sobre Nós", "href": "#quem-somos" },
+    { "text": "Soluções", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Inovação Sustentável para o Seu Negócio",
+      "descricao": "Transformamos ideias em soluções tecnológicas inteligentes e ecologicamente responsáveis.",
+      "banner": "https://placehold.co/1200x400?text=Tecnologia+Verde"
+    },
+    "quem_somos": {
+      "titulo": "Nossa Equipe de Especialistas",
+      "descricao": "Profissionais apaixonados por tecnologia e comprometidos com a excelência em cada projeto.",
+      "equipe": [
+        { "nome": "Carlos Mendes", "cargo": "CEO & Founder", "foto": "https://placehold.co/150?text=Carlos" },
+        { "nome": "Fernanda Lima", "cargo": "CTO", "foto": "https://placehold.co/150?text=Fernanda" },
+        { "nome": "Roberto Santos", "cargo": "Head de Inovação", "foto": "https://placehold.co/150?text=Roberto" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Soluções que Impulsionam Resultados",
+      "descricao": "Descubra nossos serviços premium desenvolvidos para acelerar o crescimento do seu negócio.",
+      "itens": [
+        { "nome": "Cloud Solutions", "descricao": "Infraestrutura em nuvem escalável e segura para empresas modernas.", "imagem": "https://placehold.co/300x200?text=Cloud", "preco": "899.90" },
+        { "nome": "AI Integration", "descricao": "Integração de inteligência artificial para otimizar processos e decisões.", "imagem": "https://placehold.co/300x200?text=AI", "preco": "1499.90" },
+        { "nome": "DevOps Premium", "descricao": "Automação completa de desenvolvimento e operações com SLA premium.", "imagem": "https://placehold.co/300x200?text=DevOps", "preco": "699.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Vamos Conversar?",
+      "descricao": "Entre em contato e descubra como podemos transformar seu negócio."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x400?text=Banner+Moderno",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true
+  }
+}

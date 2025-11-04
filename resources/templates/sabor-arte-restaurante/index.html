@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurante</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    :root {
+      --cor-primaria: #d97706;
+      --cor-secundaria: #92400e;
+      --cor-fundo: #fffbeb;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      font-family: 'Inter', sans-serif;
+      color: #1f2937;
+    }
+
+    .btn-primaria {
+      background-color: var(--cor-primaria);
+      color: white;
+      transition: all 0.3s;
+    }
+    .btn-primaria:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+      color: white;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: transform 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+      z-index: 100;
+      cursor: pointer;
+    }
+
+    .whatsapp-float:hover { transform: scale(1.1); }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="fixed w-full top-0 bg-white/90 backdrop-blur-md shadow-md z-40">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <div class="flex items-center gap-3">
+        <img id="logo" class="h-10" alt="Logo">
+        <h1 id="nome-restaurante" class="text-xl font-bold text-[var(--cor-primaria)]"></h1>
+      </div>
+      <nav>
+        <ul id="menu" class="flex gap-6 font-medium text-gray-700"></ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-20">
+    <!-- HOME -->
+    <section id="home" class="hero text-center py-32">
+      <div class="max-w-3xl mx-auto px-6">
+        <h2 id="titulo-home" class="text-5xl font-bold mb-4"></h2>
+        <p id="descricao-home" class="text-xl mb-6"></p>
+        <img id="banner-home" class="mx-auto rounded-lg shadow-2xl max-w-full h-auto" alt="Banner">
+      </div>
+    </section>
+
+    <!-- CARDÁPIO -->
+    <section id="cardapio" class="py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="titulo-cardapio" class="text-4xl font-bold text-center mb-4 text-[var(--cor-primaria)]"></h2>
+        <p id="descricao-cardapio" class="text-lg text-center mb-10 text-gray-700"></p>
+        <div id="categorias-cardapio" class="space-y-16"></div>
+      </div>
+    </section>
+
+    <!-- ESPECIALIDADES -->
+    <section id="especialidades" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="titulo-especialidades" class="text-4xl font-bold text-center mb-4 text-[var(--cor-primaria)]"></h2>
+        <p id="descricao-especialidades" class="text-lg text-center mb-10 text-gray-700"></p>
+        <div id="lista-especialidades" class="grid md:grid-cols-3 gap-8"></div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria" class="py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="titulo-galeria" class="text-4xl font-bold text-center mb-8 text-[var(--cor-primaria)]"></h2>
+        <div id="imagens-galeria" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- RESERVAS -->
+    <section id="reservas" class="py-20 bg-[var(--cor-fundo)]">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 id="titulo-reservas" class="text-4xl font-bold mb-4 text-[var(--cor-primaria)]"></h2>
+        <p id="descricao-reservas" class="text-lg mb-6"></p>
+        <p id="horario-reservas" class="text-md text-gray-600 mb-3"></p>
+        <p id="endereco-reservas" class="text-md text-gray-600 mb-3"></p>
+        <p id="telefone-reservas" class="text-md text-gray-600 mb-8"></p>
+        <a id="link-whatsapp" target="_blank" class="btn-primaria px-8 py-4 rounded-full font-semibold inline-block">Reservar pelo WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- CHEF -->
+    <section id="chef" class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
+        <img id="foto-chef" class="w-64 h-64 rounded-full object-cover shadow-2xl" alt="Chef">
+        <div>
+          <h3 id="nome-chef" class="text-3xl font-bold text-[var(--cor-primaria)] mb-3"></h3>
+          <p id="descricao-chef" class="text-lg text-gray-700"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-white text-center py-10" style="background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));">
+    <p class="text-lg">&copy; <span id="ano"></span> <span id="footer-nome"></span> — Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a id="whatsapp-float" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor" width="32" height="32"><path d="M16.002 0C7.174 0 0 7.174 0 16c0 2.835.747 5.607 2.174 8.049L.055 31.643l7.842-2.056C10.29 31.109 13.086 32 16.002 32c8.828 0 16-7.174 16-16S24.83 0 16.002 0zm9.477 23.203c-.39 1.096-1.931 2.008-3.162 2.272-.841.178-1.938.321-5.638-1.21-4.738-1.964-7.786-6.74-8.022-7.053-.23-.314-1.896-2.522-1.896-4.81 0-2.29 1.198-3.417 1.625-3.881.427-.464.932-.58 1.242-.58.31 0 .621.003.893.016.286.014.669-.109.996.73.327.84 1.125 2.745 1.225 2.945.1.2.167.434.033.748-.133.314-.2.509-.396.781-.197.273-.414.608-.591.817-.197.231-.403.481-.173.944.23.464.996 1.646 2.136 2.665 1.468 1.313 2.704 1.72 3.088 1.913.384.193.607.161.83-.097.223-.258.96-1.12 1.218-1.505.258-.384.515-.321.866-.193.351.128 2.228 1.05 2.612 1.24.384.193.64.289.736.45.097.161.097.92-.293 2.016z"/></svg>
+  </a>
+
+  <script>
+      const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`)
+      .then(res => res.json())
+      .then(data => {
+        // Cores
+        document.documentElement.style.setProperty('--cor-primaria', data.config.cores.primaria);
+        document.documentElement.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+        document.documentElement.style.setProperty('--cor-fundo', data.config.cores.fundo);
+
+        // Header e footer
+        document.getElementById('logo').src = data.config.logo;
+        document.getElementById('nome-restaurante').textContent = data.config.nome;
+        document.getElementById('footer-nome').textContent = data.config.nome;
+        document.getElementById('ano').textContent = new Date().getFullYear();
+
+        // Menu
+        const menu = document.getElementById('menu');
+        data.menu.forEach(m => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${m.href}" class="hover:text-[var(--cor-primaria)]">${m.text}</a>`;
+          menu.appendChild(li);
+        });
+
+        // Home
+        document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+        document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+        document.getElementById('banner-home').src = data.pages.home.banner;
+
+        // Cardápio
+        document.getElementById('titulo-cardapio').textContent = data.pages.cardapio.titulo;
+        document.getElementById('descricao-cardapio').textContent = data.pages.cardapio.descricao;
+        const categoriasDiv = document.getElementById('categorias-cardapio');
+        data.pages.cardapio.categorias.forEach(cat => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <h3 class="text-2xl font-semibold mb-4 text-[var(--cor-secundaria)]">${cat.nome}</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+              ${cat.pratos.map(p => `
+                <div class="glass-card p-6 rounded-xl">
+                  <h4 class="font-bold text-lg mb-1">${p.nome}</h4>
+                  <p class="text-gray-600 mb-2">${p.descricao}</p>
+                  <p class="text-[var(--cor-primaria)] font-semibold">R$ ${p.preco}</p>
+                </div>`).join('')}
+            </div>`;
+          categoriasDiv.appendChild(div);
+        });
+
+        // Especialidades
+        document.getElementById('titulo-especialidades').textContent = data.pages.especialidades.titulo;
+        document.getElementById('descricao-especialidades').textContent = data.pages.especialidades.descricao;
+        const espDiv = document.getElementById('lista-especialidades');
+        data.pages.especialidades.itens.forEach(e => {
+          const card = document.createElement('div');
+          card.className = 'glass-card p-6 rounded-xl text-center';
+          card.innerHTML = `
+            <img src="${e.imagem}" alt="${e.nome}" class="w-full h-48 object-cover rounded-xl mb-4">
+            <h4 class="text-xl font-bold mb-2">${e.nome}</h4>
+            <p class="text-gray-600 mb-2">${e.descricao}</p>
+            <p class="font-semibold text-[var(--cor-primaria)] text-lg">R$ ${e.preco}</p>`;
+          espDiv.appendChild(card);
+        });
+
+        // Galeria
+        document.getElementById('titulo-galeria').textContent = data.pages.galeria.titulo;
+        const galeria = document.getElementById('imagens-galeria');
+        data.pages.galeria.imagens.forEach(img => {
+          const el = document.createElement('img');
+          el.src = img;
+          el.className = 'rounded-xl shadow-md hover:scale-105 transition-transform duration-300';
+          galeria.appendChild(el);
+        });
+
+        // Reservas
+        document.getElementById('titulo-reservas').textContent = data.pages.reservas.titulo;
+        document.getElementById('descricao-reservas').textContent = data.pages.reservas.descricao;
+        document.getElementById('horario-reservas').textContent = data.pages.reservas.horario;
+        document.getElementById('endereco-reservas').textContent = data.pages.reservas.endereco;
+        document.getElementById('telefone-reservas').textContent = data.pages.reservas.telefone;
+
+        // Chef
+        document.getElementById('foto-chef').src = data.chef.foto;
+        document.getElementById('nome-chef').textContent = data.chef.nome;
+        document.getElementById('descricao-chef').textContent = data.chef.descricao;
+
+        // WhatsApp
+        const wa = `https://wa.me/${data.whatsapp.numero}?text=${encodeURIComponent(data.whatsapp.mensagem)}`;
+        document.getElementById('link-whatsapp').href = wa;
+        document.getElementById('whatsapp-float').href = wa;
+      });
+  </script>
+</body>
+</html>
+

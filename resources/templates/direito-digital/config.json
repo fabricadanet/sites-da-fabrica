@@ -1,0 +1,34 @@
+{
+  "config": {
+    "nome": "Direito Digital | Advocacia Moderna",
+    "cores": { "primaria": "#b91c1c", "secundaria": "#991b1b" }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Serviços", "href": "#servicos" },
+    { "text": "Diferenciais", "href": "#diferenciais" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Advocacia Digital e Ágil",
+      "descricao": "Soluções jurídicas modernas para o mundo digital. Atendimento 100% online com advogados especializados."
+    },
+    "servicos": {
+      "titulo": "Nossos Serviços Jurídicos",
+      "itens": [
+        { "nome": "Direito Digital e LGPD", "descricao": "Proteção de dados, privacidade e compliance digital." },
+        { "nome": "Contratos Empresariais", "descricao": "Elaboração e revisão de contratos comerciais e societários." },
+        { "nome": "Recuperação de Crédito", "descricao": "Ações de cobrança e negativação." },
+        { "nome": "Direito do Consumidor", "descricao": "Defesa em relações de consumo e ações contra empresas." },
+        { "nome": "Propriedade Intelectual", "descricao": "Registro de marcas, patentes e direitos autorais." },
+        { "nome": "Compliance Jurídico", "descricao": "Adequação legal e gestão de riscos empresariais." }
+      ]
+    },
+    "contato": {
+      "titulo": "Fale com Nossa Equipe",
+      "descricao": "Primeira consulta gratuita. Resposta garantida em até 2 horas úteis."
+    }
+  },
+  "whatsapp": { "numero": "5551999999999", "mensagem": "Olá! Preciso de orientação jurídica." }
+}

@@ -1,0 +1,126 @@
+{
+  "config": {
+    "nome": "Escritório Jurídico Oliveira & Associados",
+    "logo": "https://placehold.co/150x50?text=Oliveira+Advocacia",
+    "cores": {
+      "primaria": "#1a365d",
+      "secundaria": "#2c5282",
+      "fundo": "#f7fafc"
+    }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Áreas de Atuação", "href": "#areas" },
+    { "text": "Nossa Equipe", "href": "#equipe" },
+    { "text": "Depoimentos", "href": "#depoimentos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Excelência Jurídica com Tradição e Competência",
+      "descricao": "Há mais de 30 anos prestando assessoria jurídica de alto nível com ética, profissionalismo e resultados comprovados.",
+      "banner": "https://placehold.co/600x400?text=Advocacia+Tradicional"
+    },
+    "areas": {
+      "titulo": "Áreas de Atuação",
+      "descricao": "Atuamos nas principais áreas do direito com profissionais altamente qualificados",
+      "itens": [
+        {
+          "nome": "Direito Empresarial",
+          "descricao": "Consultoria societária, contratos comerciais, fusões e aquisições.",
+          "icone": "🏢"
+        },
+        {
+          "nome": "Direito Tributário",
+          "descricao": "Planejamento tributário, elisão fiscal e contencioso tributário.",
+          "icone": "📊"
+        },
+        {
+          "nome": "Direito Trabalhista",
+          "descricao": "Assessoria preventiva e contenciosa em questões trabalhistas.",
+          "icone": "⚖️"
+        },
+        {
+          "nome": "Direito Civil",
+          "descricao": "Contratos, responsabilidade civil e direito imobiliário.",
+          "icone": "📄"
+        },
+        {
+          "nome": "Direito de Família",
+          "descricao": "Divórcios, inventários, pensões e guarda de menores.",
+          "icone": "👨‍👩‍👧‍👦"
+        },
+        {
+          "nome": "Direito do Consumidor",
+          "descricao": "Defesa dos direitos do consumidor e relações de consumo.",
+          "icone": "🛡️"
+        }
+      ]
+    },
+    "equipe": {
+      "titulo": "Nossa Equipe de Profissionais",
+      "membros": [
+        {
+          "nome": "Dr. Ricardo Oliveira",
+          "cargo": "Sócio Fundador",
+          "oab": "OAB/SP 123.456",
+          "foto": "https://placehold.co/150?text=Dr.Ricardo",
+          "especialidade": "Direito Empresarial"
+        },
+        {
+          "nome": "Dra. Fernanda Almeida",
+          "cargo": "Sócia",
+          "oab": "OAB/SP 234.567",
+          "foto": "https://placehold.co/150?text=Dra.Fernanda",
+          "especialidade": "Direito Tributário"
+        },
+        {
+          "nome": "Dr. Marcos Ferreira",
+          "cargo": "Advogado Sênior",
+          "oab": "OAB/SP 345.678",
+          "foto": "https://placehold.co/150?text=Dr.Marcos",
+          "especialidade": "Direito Trabalhista"
+        },
+        {
+          "nome": "Dra. Juliana Costa",
+          "cargo": "Advogada Associada",
+          "oab": "OAB/SP 456.789",
+          "foto": "https://placehold.co/150?text=Dra.Juliana",
+          "especialidade": "Direito de Família"
+        }
+      ]
+    },
+    "depoimentos": {
+      "titulo": "O Que Dizem Nossos Clientes",
+      "itens": [
+        {
+          "nome": "João Silva",
+          "empresa": "Silva Comércio Ltda.",
+          "texto": "Excelente assessoria jurídica. Resolveram nosso caso com eficiência e profissionalismo."
+        },
+        {
+          "nome": "Maria Santos",
+          "empresa": "Pessoa Física",
+          "texto": "Equipe extremamente competente e atenciosa. Recomendo sem ressalvas."
+        },
+        {
+          "nome": "Pedro Oliveira",
+          "empresa": "Oliveira Transportes",
+          "texto": "Atuação impecável em nosso contencioso trabalhista. Resultados acima das expectativas."
+        }
+      ]
+    },
+    "contato": {
+      "titulo": "Agende uma Consulta",
+      "descricao": "Entre em contato conosco e agende uma reunião para discutir seu caso.",
+      "endereco": "Av. Paulista, 1000 - Conj. 1201/1202 - São Paulo/SP",
+      "telefone": "(11) 3000-0000",
+      "email": "contato@oliveiraeassociados.adv.br",
+      "horario": "Segunda a Sexta: 9h às 18h"
+    }
+  },
+  "whatsapp": {
+    "numero": "5511999999999",
+    "mensagem": "Olá! Gostaria de agendar uma consulta jurídica."
+  }
+}

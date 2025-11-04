@@ -1,0 +1,46 @@
+{
+  "config": {
+    "nome": "Clínica Vida & Saúde",
+    "logo": "https://placehold.co/150x50?text=Vida+Saude",
+    "cores": { "primaria": "#0891b2", "secundaria": "#0e7490" }
+  },
+  "menu": [
+    { "text": "Início", "href": "#home" },
+    { "text": "Especialidades", "href": "#especialidades" },
+    { "text": "Médicos", "href": "#medicos" },
+    { "text": "Agendar", "href": "#agendamento" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "Cuidado Completo com Sua Saúde",
+      "descricao": "Clínica multiespecializada com profissionais experientes e equipamentos de última geração.",
+      "banner": "https://placehold.co/600x400?text=Clinica+Saude"
+    },
+    "especialidades": {
+      "titulo": "Nossas Especialidades",
+      "descricao": "Atendimento médico completo para toda a família",
+      "itens": [
+        { "nome": "Clínica Geral", "descricao": "Consultas de rotina e check-ups", "icone": "🩺" },
+        { "nome": "Cardiologia", "descricao": "Saúde do coração", "icone": "❤️" },
+        { "nome": "Pediatria", "descricao": "Cuidados infantis", "icone": "👶" },
+        { "nome": "Ginecologia", "descricao": "Saúde da mulher", "icone": "💐" },
+        { "nome": "Ortopedia", "descricao": "Ossos e articulações", "icone": "🦴" },
+        { "nome": "Dermatologia", "descricao": "Cuidados com a pele", "icone": "✨" }
+      ]
+    },
+    "medicos": {
+      "titulo": "Nossos Médicos",
+      "lista": [
+        { "nome": "Dr. João Silva", "especialidade": "Cardiologista", "crm": "CRM/RS 12345", "foto": "https://placehold.co/150?text=Dr.Joao" },
+        { "nome": "Dra. Maria Santos", "especialidade": "Pediatra", "crm": "CRM/RS 23456", "foto": "https://placehold.co/150?text=Dra.Maria" },
+        { "nome": "Dr. Pedro Costa", "especialidade": "Ortopedista", "crm": "CRM/RS 34567", "foto": "https://placehold.co/150?text=Dr.Pedro" },
+        { "nome": "Dra. Ana Lima", "especialidade": "Ginecologista", "crm": "CRM/RS 45678", "foto": "https://placehold.co/150?text=Dra.Ana" }
+      ]
+    },
+    "agendamento": {
+      "titulo": "Agende Sua Consulta",
+      "descricao": "Preencha o formulário e nossa equipe entrará em contato para confirmar"
+    }
+  },
+  "whatsapp": { "numero": "5551999999999", "mensagem": "Olá! Gostaria de agendar uma consulta." }
+}

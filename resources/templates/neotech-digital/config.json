@@ -1,0 +1,52 @@
+{
+  "config": {
+    "nome": "NeoTech Digital",
+    "logo": "https://placehold.co/150x50?text=NeoTech",
+    "cores": {
+      "primaria": "#8b5cf6",
+      "secundaria": "#7c3aed",
+      "fundo": "#0f172a"
+    }
+  },
+  "menu": [
+    { "text": "Home", "href": "#home" },
+    { "text": "Sobre", "href": "#quem-somos" },
+    { "text": "Produtos", "href": "#produtos" },
+    { "text": "Contato", "href": "#contato" }
+  ],
+  "pages": {
+    "home": {
+      "titulo": "O Futuro da Tecnologia Começa Aqui",
+      "descricao": "Soluções digitais avançadas com inteligência artificial e inovação disruptiva.",
+      "banner": "https://placehold.co/1200x400?text=Tech+Futurista"
+    },
+    "quem_somos": {
+      "titulo": "Especialistas em Inovação",
+      "descricao": "Uma equipe de visionários comprometidos em transformar o impossível em realidade.",
+      "equipe": [
+        { "nome": "Dr. Rafael Tech", "cargo": "Chief Innovation Officer", "foto": "https://placehold.co/150?text=Rafael" },
+        { "nome": "Juliana Code", "cargo": "Lead Developer", "foto": "https://placehold.co/150?text=Juliana" },
+        { "nome": "Marcus AI", "cargo": "AI Research Lead", "foto": "https://placehold.co/150?text=Marcus" }
+      ]
+    },
+    "produtos": {
+      "titulo": "Tecnologias de Ponta",
+      "descricao": "Explore nossas soluções premium que definem o futuro da indústria digital.",
+      "itens": [
+        { "nome": "Quantum Analytics", "descricao": "Análise de dados em tempo real com processamento quântico avançado.", "imagem": "https://placehold.co/300x200?text=Quantum", "preco": "1999.90" },
+        { "nome": "Neural Networks Pro", "descricao": "Redes neurais personalizadas para aprendizado profundo e automação.", "imagem": "https://placehold.co/300x200?text=Neural", "preco": "2499.90" },
+        { "nome": "Blockchain Security", "descricao": "Segurança máxima com tecnologia blockchain descentralizada.", "imagem": "https://placehold.co/300x200?text=Blockchain", "preco": "1599.90" }
+      ]
+    },
+    "contato": {
+      "titulo": "Conecte-se ao Futuro",
+      "descricao": "Entre em contato e descubra como podemos revolucionar seu negócio."
+    }
+  },
+  "configuracoes_site": {
+    "banner_placeholder": "https://placehold.co/1200x400?text=Banner+Futurista",
+    "imagem_placeholder": "https://placehold.co/300x200?text=Imagem",
+    "logo_placeholder": "https://placehold.co/150x50?text=Logo",
+    "cores_customizaveis": true
+  }
+}

@@ -23,6 +23,15 @@ class SiteController extends Controller
     }
 
     /**
+     * Listar todos os templates grid templates
+     */
+
+     public function templates(){
+        
+         return View('tenant.grid-templates');
+     }
+
+    /**
      * Editar um site específico
      */
     public function edit(Site $site)

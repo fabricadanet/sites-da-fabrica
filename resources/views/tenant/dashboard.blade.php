@@ -1,4 +1,9 @@
 <x-app-layout>
+    @php
+    $templates = \App\Models\Template::active()->ordered()->get();
+    @endphp
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -98,7 +103,11 @@
                             <p class="text-gray-700 mb-4">
                                 Crie seu primeiro site profissional em minutos com nossos templates prontos. 
                             </p>
-                            <livewire:create-site-modal />
+                                <a href="{{ route('tenant.grid-templates') }}"
+                                   class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    <i class="fas fa-rocket mr-2"></i> Criar Site Agora
+                                </a>
                         </div>
                     </div>
                 @else
@@ -109,7 +118,11 @@
                                 Você tem mais {{ ($plan?->max_sites ?? 1) - auth()->user()->sites()->count() }} site(s) disponível(is) no seu plano
                             </p>
                         </div>
-                        <livewire:create-site-modal />
+                             <a href="{{ route('tenant.grid-templates') }}"
+                                   class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    <i class="fas fa-rocket mr-2"></i> Criar Site Agora
+                                </a>
                     </div>
                 @endif
             </div>
@@ -211,7 +224,11 @@
                                             <div class="space-y-3">
                                                 <i class="fas fa-inbox text-4xl text-gray-300"></i>
                                                 <p class="text-gray-600">Nenhum site criado ainda</p>
-                                                <livewire:create-site-modal />
+                                                 <a href="{{ route('tenant.grid-templates') }}"
+                                   class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    <i class="fas fa-rocket mr-2"></i> Criar Site Agora
+                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -223,7 +240,11 @@
                     <div class="px-6 py-12 text-center">
                         <i class="fas fa-inbox text-5xl text-gray-300 mb-4"></i>
                         <p class="text-gray-600 mb-6">Você ainda não criou nenhum site</p>
-                        <livewire:create-site-modal />
+                                                       <a href="{{ route('tenant.grid-templates') }}"
+                                   class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    <i class="fas fa-rocket mr-2"></i> Criar Site Agora
+                                </a>
                     </div>
                 @endif
             </div>
@@ -254,12 +275,6 @@
     </div>
 
     @push('scripts')
-        <script>
-            // Ouvir evento de site criado
-            Livewire.on('site-created', (data) => {
-                // Opcional: mostrar notificação de sucesso
-                console.log('Site criado:', data);
-            });
-        </script>
+       
     @endpush
 </x-app-layout>

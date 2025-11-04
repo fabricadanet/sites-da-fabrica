@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Institucional - Empresa Exemplo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    /* Aplicar cores do JSON */
+    .btn-primaria { 
+      background-color: var(--cor-primaria); 
+      color: white; 
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primaria::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn-primaria:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    .btn-primaria:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    /* Grid assimétrico */
+    .magazine-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    
+    .featured-large {
+      grid-column: span 8;
+      grid-row: span 2;
+    }
+    
+    .featured-medium {
+      grid-column: span 4;
+    }
+    
+    .featured-small {
+      grid-column: span 4;
+    }
+    
+    @media (max-width: 768px) {
+      .featured-large,
+      .featured-medium,
+      .featured-small {
+        grid-column: span 12;
+        grid-row: span 1;
+      }
+    }
+    
+    /* Cards com overlay */
+    .magazine-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 100%;
+      min-height: 300px;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .magazine-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    
+    .magazine-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .magazine-card:hover img {
+      transform: scale(1.1);
+    }
+    
+    .magazine-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: white;
+    }
+    
+    /* Typography style */
+    .headline {
+      font-family: 'Georgia', serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    .serif-text {
+      font-family: 'Georgia', serif;
+    }
+    
+    /* Badges */
+    .category-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--cor-primaria);
+      color: white;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    
+    /* Divider decorativo */
+    .decorative-divider {
+      width: 60px;
+      height: 4px;
+      background: var(--cor-primaria);
+      margin: 20px 0;
+    }
+    
+    /* Modal */
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 50; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .modal-content { 
+      background-color: white;
+      margin: 3% auto; 
+      padding: 0; 
+      border-radius: 20px; 
+      max-width: 700px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+    .close { 
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 2rem; 
+      cursor: pointer; 
+      color: white;
+      z-index: 10;
+      transition: all 0.3s;
+      background: rgba(0,0,0,0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .close:hover { 
+      transform: rotate(90deg);
+      background: rgba(0,0,0,0.8);
+    }
+    
+    /* Botão WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      left: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse-whatsapp 2s infinite;
+    }
+    .whatsapp-float:hover {
+      background-color: #20ba5a;
+      transform: scale(1.1);
+      box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.6);
+    }
+    @keyframes pulse-whatsapp {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-float svg { width: 35px; height: 35px; }
+    .whatsapp-tooltip {
+      position: absolute;
+      left: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+    .whatsapp-tooltip::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 8px solid transparent;
+      border-right-color: white;
+    }
+    
+    /* Navegação fixa com background blur */
+    .nav-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.95);
+      transition: all 0.3s;
+    }
+    
+    .nav-fixed.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body style="--cor-primaria:#e11d48; --cor-secundaria:#be123c; --cor-fundo:#fef2f2;" class="bg-gray-50">
+
+  <!-- Header fixo -->
+  <header class="nav-fixed">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img id="logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-10">
+          <h1 id="nome-empresa" class="font-bold text-2xl headline" style="color: var(--cor-primaria);"></h1>
+        </div>
+        <nav class="hidden md:block">
+          <ul id="menu" class="flex gap-8 items-center"></ul>
+        </nav>
+        <button id="abrir-carrinho" class="btn-primaria px-6 py-3 rounded-full font-semibold relative">
+          Carrinho (<span id="cart-count">0</span>)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24">
+    <!-- Hero Magazine Style -->
+    <section id="home" class="container mx-auto px-6 mb-20">
+      <div class="magazine-grid">
+        <!-- Featured Principal -->
+        <div class="featured-large magazine-card">
+          <img id="banner" src="https://placehold.co/1200x800?text=Hero+Principal" alt="Banner">
+          <div class="magazine-overlay">
+            <span class="category-badge">Destaque</span>
+            <h2 id="titulo-home" class="text-5xl font-bold headline mb-4"></h2>
+            <p id="descricao-home" class="text-xl opacity-90 serif-text"></p>
+            <a href="#produtos" class="mt-6 inline-block btn-primaria px-8 py-3 rounded-full font-semibold">
+              Explorar →
+            </a>
+          </div>
+        </div>
+        
+        <!-- Cards laterais -->
+        <div class="featured-medium magazine-card">
+          <img src="https://placehold.co/600x400?text=Destaque+2" alt="Destaque 2">
+          <div class="magazine-overlay">
+            <span class="category-badge">Novidade</span>
+            <h3 class="text-2xl font-bold headline">Inovação Constante</h3>
+            <p class="text-sm mt-2 opacity-90">Sempre à frente do mercado</p>
+          </div>
+        </div>
+        
+        <div class="featured-medium magazine-card">
+          <img src="https://placehold.co/600x400?text=Destaque+3" alt="Destaque 3">
+          <div class="magazine-overlay">
+            <span class="category-badge">Qualidade</span>
+            <h3 class="text-2xl font-bold headline">Excelência em Serviços</h3>
+            <p class="text-sm mt-2 opacity-90">Comprometidos com resultados</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quem Somos - Estilo Editorial -->
+    <section id="quem-somos" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+          <h2 id="titulo-quem" class="text-5xl font-bold headline mb-6" style="color: var(--cor-primaria);"></h2>
+          <div class="decorative-divider mx-auto"></div>
+          <p id="descricao-quem" class="text-xl text-gray-700 serif-text leading-relaxed"></p>
+        </div>
+        
+        <div id="equipe" class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Produtos - Grid Magazine -->
+    <section id="produtos" class="py-20" style="background-color: var(--cor-fundo);">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+          <h2 id="titulo-produtos" class="text-5xl font-bold headline mb-6" style="color: var(--cor-primaria);"></h2>
+          <div class="decorative-divider mx-auto"></div>
+          <p id="descricao-produtos" class="text-xl text-gray-700 serif-text leading-relaxed"></p>
+        </div>
+        <div id="lista-produtos" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+
+    <!-- Contato - Estilo Clean -->
+    <section id="contato" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center mb-12">
+          <h2 id="titulo-contato" class="text-5xl font-bold headline mb-6" style="color: var(--cor-primaria);"></h2>
+          <div class="decorative-divider mx-auto"></div>
+          <p id="descricao-contato" class="text-xl text-gray-700 serif-text"></p>
+        </div>
+        
+        <form class="max-w-2xl mx-auto bg-gray-50 p-10 rounded-3xl shadow-lg">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <input type="text" placeholder="Nome completo" class="w-full border-2 border-gray-200 p-4 rounded-xl focus:border-[var(--cor-primaria)] outline-none transition-all">
+            <input type="email" placeholder="E-mail" class="w-full border-2 border-gray-200 p-4 rounded-xl focus:border-[var(--cor-primaria)] outline-none transition-all">
+          </div>
+          <textarea placeholder="Sua mensagem" rows="6" class="w-full border-2 border-gray-200 p-4 rounded-xl mb-6 focus:border-[var(--cor-primaria)] outline-none transition-all"></textarea>
+          <button type="submit" class="btn-primaria w-full px-8 py-4 rounded-xl font-bold text-lg">
+            Enviar Mensagem
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Modal Carrinho -->
+    <div id="modal-carrinho" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-carrinho">&times;</span>
+        <div class="p-8">
+          <h2 class="text-3xl font-bold headline mb-6" style="color: var(--cor-primaria);">Carrinho de Compras</h2>
+          <div id="itens-carrinho" class="mb-6"></div>
+          <button id="finalizar-compra" class="btn-primaria px-8 py-4 rounded-xl font-semibold text-lg w-full">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Botão WhatsApp -->
+    <a href="https://wa.me/5551999999999?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." 
+       target="_blank" 
+       class="whatsapp-float" 
+       aria-label="Fale conosco no WhatsApp">
+      <span class="whatsapp-tooltip">Fale conosco!</span>
+      <svg viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16.002 0C7.174 0 0 7.174 0 16c0 2.835.747 5.607 2.174 8.049L.055 31.643l7.842-2.056C10.29 31.109 13.086 32 16.002 32c8.828 0 16-7.174 16-16S24.83 0 16.002 0zm9.477 23.203c-.39 1.096-1.931 2.008-3.162 2.272-.841.178-1.938.321-5.638-1.21-4.738-1.964-7.786-6.74-8.022-7.053-.23-.314-1.896-2.522-1.896-4.81 0-2.29 1.198-3.417 1.625-3.881.427-.464.932-.58 1.242-.58.31 0 .621.003.893.016.286.014.669-.109.996.73.327.84 1.125 2.745 1.225 2.945.1.2.167.434.033.748-.133.314-.2.509-.396.781-.197.273-.414.608-.591.817-.197.231-.403.481-.173.944.23.464.996 1.646 2.136 2.665 1.468 1.313 2.704 1.72 3.088 1.913.384.193.607.161.83-.097.223-.258.96-1.12 1.218-1.505.258-.384.515-.321.866-.193.351.128 2.228 1.05 2.612 1.24.384.193.64.289.736.45.097.161.097.92-.293 2.016z"/>
+      </svg>
+    </a>
+  </main>
+
+  <!-- Footer Magazine -->
+  <footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-6">
+      <div class="text-center">
+        <img id="footer-logo" src="https://placehold.co/150x50?text=Logo" alt="Logo" class="h-12 mx-auto mb-6 brightness-0 invert">
+        <div class="decorative-divider mx-auto mb-6" style="background: white;"></div>
+        <p class="text-lg serif-text">&copy; <span id="ano"></span> <span id="footer-nome" class="font-bold"></span></p>
+        <p class="text-sm opacity-75 mt-2">Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+      const url = window.location.pathname.split('/').filter(Boolean);
+const slug = url[url.length - 1];
+
+fetch(`/preview-template/${slug}/config`)
+      .then(res => res.json())
+      .then(data => {
+        document.body.style.setProperty('--cor-primaria', data.config.cores.primaria);
+        document.body.style.setProperty('--cor-secundaria', data.config.cores.secundaria);
+        document.body.style.setProperty('--cor-fundo', data.config.cores.fundo);
+
+        document.getElementById('nome-empresa').textContent = data.config.nome;
+        document.getElementById('footer-nome').textContent = data.config.nome;
+        document.getElementById('ano').textContent = new Date().getFullYear();
+        document.getElementById('logo').src = data.config.logo;
+        document.getElementById('footer-logo').src = data.config.logo;
+
+        const menu = document.getElementById('menu');
+        data.menu.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href='${item.href}' class='font-semibold text-gray-700 hover:text-[var(--cor-primaria)] transition-colors'>${item.text}</a>`;
+          menu.appendChild(li);
+        });
+
+        document.getElementById('banner').src = data.pages.home.banner;
+        document.getElementById('titulo-home').textContent = data.pages.home.titulo;
+        document.getElementById('descricao-home').textContent = data.pages.home.descricao;
+
+        document.getElementById('titulo-quem').textContent = data.pages.quem_somos.titulo;
+        document.getElementById('descricao-quem').textContent = data.pages.quem_somos.descricao;
+        const equipeDiv = document.getElementById('equipe');
+        data.pages.quem_somos.equipe.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'text-center group';
+          card.innerHTML = `
+            <div class="relative overflow-hidden rounded-2xl mb-4">
+              <img src='${m.foto}' alt='${m.nome}' class='w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110'>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <h3 class='font-bold text-2xl mb-2 headline'>${m.nome}</h3>
+            <p class='text-gray-600 serif-text'>${m.cargo}</p>`;
+          equipeDiv.appendChild(card);
+        });
+
+        document.getElementById('titulo-produtos').textContent = data.pages.produtos.titulo;
+        document.getElementById('descricao-produtos').textContent = data.pages.produtos.descricao;
+        const produtosDiv = document.getElementById('lista-produtos');
+        data.pages.produtos.itens.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group';
+          card.innerHTML = `
+            <div class="relative overflow-hidden h-56">
+              <img src='${p.imagem}' alt='${p.nome}' class='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'>
+              <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full">
+                <span class="font-bold text-sm" style="color: var(--cor-primaria)">R$ ${p.preco}</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class='font-bold text-xl mb-2 headline'>${p.nome}</h3>
+              <p class='text-gray-600 mb-4 serif-text'>${p.descricao}</p>
+              <button class='btn-primaria w-full px-6 py-3 rounded-xl font-semibold'>Adicionar ao Carrinho</button>
+            </div>`;
+          card.querySelector('button').addEventListener('click', () => adicionarAoCarrinho(p));
+          produtosDiv.appendChild(card);
+        });
+
+        document.getElementById('titulo-contato').textContent = data.pages.contato.titulo;
+        document.getElementById('descricao-contato').textContent = data.pages.contato.descricao;
+      });
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function atualizarCarrinho(){
+      const itens = document.getElementById('itens-carrinho');
+      const badge = document.getElementById('cart-count');
+      badge.textContent = carrinho.length;
+      
+      itens.innerHTML = '';
+      if(carrinho.length === 0){
+        itens.innerHTML = '<p class="text-center text-gray-600 py-8">Seu carrinho está vazio</p>';
+      } else {
+        carrinho.forEach((i, idx)=>{
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center border-b border-gray-200 py-4';
+          div.innerHTML = `
+            <div>
+              <p class="font-semibold headline">${i.nome}</p>
+              <p class="text-sm text-gray-600">R$ ${i.preco}</p>
+            </div>
+            <button class='text-red-600 hover:text-red-800 font-semibold transition-colors' onclick='removerItem(${idx})'>Remover</button>`;
+          itens.appendChild(div);
+        });
+        const total = carrinho.reduce((s,v)=>s + parseFloat(v.preco),0).toFixed(2);
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'text-right font-bold text-2xl mt-4 headline';
+        totalDiv.style.color = 'var(--cor-primaria)';
+        totalDiv.textContent = `Total: R$ ${total}`;
+        itens.appendChild(totalDiv);
+      }
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    function adicionarAoCarrinho(produto){
+      carrinho.push(produto);
+      atualizarCarrinho();
+      abrirCarrinho();
+    }
+
+    function removerItem(index){
+      carrinho.splice(index,1);
+      atualizarCarrinho();
+    }
+
+    document.getElementById('finalizar-compra').addEventListener('click', ()=>{
+      if(carrinho.length === 0){ alert('Carrinho vazio!'); return; }
+      alert('Compra finalizada com sucesso! Total: R$ '+carrinho.reduce((s,v)=>s+parseFloat(v.preco),0).toFixed(2));
+      carrinho=[];
+      atualizarCarrinho();
+      fecharCarrinho();
+    });
+
+    const modal = document.getElementById('modal-carrinho');
+    const btnAbrir = document.getElementById('abrir-carrinho');
+    const btnFechar = document.getElementById('fechar-carrinho');
+
+    function abrirCarrinho(){
+      modal.style.display='block';
+      atualizarCarrinho();
+    }
+    function fecharCarrinho(){ modal.style.display='none'; }
+
+    btnAbrir.onclick = abrirCarrinho;
+    btnFechar.onclick = fecharCarrinho;
+    window.onclick = function(event){ if(event.target == modal){ fecharCarrinho(); } }
+
+    atualizarCarrinho();
+    
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.nav-fixed');
+      if(window.scrollY > 50){
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+</body>
+</html>
