@@ -1,102 +1,75 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+use App\Models\Template;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\SiteController;
-use App\Http\Controllers\TemplatePreviewController;
+use App\Http\Controllers\ProfileController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', LandingController::class . '@index')->name('landing');
 // ou
 Route::get('/landing', LandingController::class . '@index')->name('landing');
+Route::get('/terms', function () {
+    return view('terms'); // Assumindo que você tem
+})->name('terms.show');
 
-// register route
-Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
+Route::get('/policy', function () {
+    return view('policy'); // Assumindo que você tem
+})->name('policy.show');
 
 
-Route::get('/dashboard', function () {
-    return view('tenant.dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    // Aponta para o seu AdminController existente
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    
+    // Mantenha suas outras rotas de admin (users, etc)
+ //   Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+ //   Route::get('/admin/users/{user}/edit', [AdminController::class, 'userEdit'])->name('admin.user.edit');
+  //  Route::put('/admin/users/{user}', [AdminController::class, 'userUpdate'])->name('admin.user.update');
+  //  Route::delete('/admin/users/{user}', [AdminController::class, 'userDestroy'])->name('admin.user.destroy');
+});
 
-Route::middleware('auth')->group(function () {
+// --- FLUXO DO USUÁRIO (A REFATORAÇÃO) ---
+Route::middleware(['auth'])->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // 1. Dashboard do Usuário (Lista de Projetos)
+    Route::get('/user/dashboard', \App\Livewire\ProjectList::class)->name('user.dashboard');
 
+    // 2. Rota para a Galeria de Templates
+   Route::get('/projects/create', \App\Livewire\TemplateGallery::class)->name('projects.create');
 
+    // 3. Rota para o Editor de Site
+   Route::get('/projects/{project}/edit', \App\Livewire\SiteEditor::class)->name('projects.edit');
 
-    // GEt view grid-templates
-    Route::get('/templates', [App\Http\Controllers\SiteController::class, 'templates'])->name('tenant.grid-templates');
+});
 
-    Route::get('/preview-template/{slug}', [TemplatePreviewController::class, 'show'])
-    ->name('preview.template');
-    
-    Route::get('/preview-template/{slug}/config', function ($slug) {
-    $path = resource_path("templates/{$slug}/config.json");
-
-    if (!file_exists($path)) {
+// 4. Rota de Assets Dinâmicos (para previews e iframe)
+Route::get('/template-assets/{templateName}/{assetPath}', function ($templateName, $assetPath) {
+    if (Str::contains($templateName, '..') || Str::contains($assetPath, '..')) {
+        abort(403);
+    }
+    $template = Template::where('name', $templateName)->firstOrFail();
+    $path = storage_path("app/templates/{$template->name}/{$assetPath}");
+    if (!File::exists($path)) {
         abort(404);
     }
-
-    return response()->file($path, ['Content-Type' => 'application/json']);
-});
-
-
-    // Dentro de Route::middleware(['auth', 'verified'])->group(function () {
-    // Sites
-     Route::prefix('sites')->group(function () {
-        Route::get('/', [App\Http\Controllers\SiteController::class, 'index'])->name('tenant.sites.index');
-        Route::get('/{site:slug}/edit', [App\Http\Controllers\SiteController::class, 'edit'])->name('tenant.sites.edit');
-        Route::get('/{site:slug}/preview', [App\Http\Controllers\SiteController::class, 'preview'])->name('tenant.sites.preview');
-        Route::get('/{site:slug}/stats', [App\Http\Controllers\SiteController::class, 'stats'])->name('tenant.sites.stats');
-        
-        Route::patch('/{site:slug}', [App\Http\Controllers\SiteController::class, 'update'])->name('tenant.sites.update');
-        Route::post('/{site:slug}/publish', [App\Http\Controllers\SiteController::class, 'publish'])->name('tenant.sites.publish');
-        Route::post('/{site:slug}/unpublish', [App\Http\Controllers\SiteController::class, 'unpublish'])->name('tenant.sites.unpublish');
-        Route::post('/{site:slug}/duplicate', [App\Http\Controllers\SiteController::class, 'duplicate'])->name('tenant.sites.duplicate');
-        Route::delete('/{site:slug}', [App\Http\Controllers\SiteController::class, 'destroy'])->name('tenant.sites.destroy');
-    });
-
-    Route::middleware(['auth'])->group(function () {
-    Route::post('/sites', [App\Http\Controllers\SiteController::class, 'store'])->name('sites.store');
-});
-
-    // Páginas
-    Route::prefix('sites/{site:slug}/pages')->group(function () {
-        Route::get('/', [App\Http\Controllers\PageController::class, 'index'])->name('tenant.pages.index');
-        Route::post('/', [App\Http\Controllers\PageController::class, 'store'])->name('tenant.pages.store');
-        Route::get('/{page:slug}/edit', [App\Http\Controllers\PageController::class, 'edit'])->name('tenant.pages.edit');
-        Route::patch('/{page:slug}', [App\Http\Controllers\PageController::class, 'update'])->name('tenant.pages.update');
-        Route::delete('/{page:slug}', [App\Http\Controllers\PageController::class, 'destroy'])->name('tenant.pages.destroy');
-    });
-
-    // Seções
-    Route::prefix('sites/{site:slug}/sections')->group(function () {
-        Route::post('/', [App\Http\Controllers\SectionController::class, 'store'])->name('tenant.sections.store');
-        Route::patch('/{section}', [App\Http\Controllers\SectionController::class, 'update'])->name('tenant.sections.update');
-        Route::delete('/{section}', [App\Http\Controllers\SectionController::class, 'destroy'])->name('tenant.sections.destroy');
-        Route::post('/{section}/reorder', [App\Http\Controllers\SectionController::class, 'reorder'])->name('tenant.sections.reorder');
-    });
-
-    // Mídia
-    Route::prefix('sites/{site:slug}/media')->group(function () {
-        Route::get('/', [App\Http\Controllers\MediaController::class, 'index'])->name('tenant.media.index');
-        Route::post('/upload', [App\Http\Controllers\MediaController::class, 'store'])->name('tenant.media.store');
-        Route::delete('/{media}', [App\Http\Controllers\MediaController::class, 'destroy'])->name('tenant.media.destroy');
-    });
-
-    // Domínios Customizados
-    Route::prefix('sites/{site:slug}/domains')->group(function () {
-        Route::get('/', [App\Http\Controllers\CustomDomainController::class, 'index'])->name('tenant.domains.index');
-        Route::post('/', [App\Http\Controllers\CustomDomainController::class, 'store'])->name('tenant.domains.store');
-        Route::post('/{domain}/verify', [App\Http\Controllers\CustomDomainController::class, 'verify'])->name('tenant.domains.verify');
-        Route::delete('/{domain}', [App\Http\Controllers\CustomDomainController::class, 'destroy'])->name('tenant.domains.destroy');
-    });
-});
-
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->where('assetPath', '.*')->name('template.asset');
 
 
 require __DIR__.'/auth.php';

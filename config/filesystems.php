@@ -60,6 +60,20 @@ return [
             'report' => false,
         ],
 
+ 'deploy' => [
+            'driver'     => 'sftp', // ou 'ftp' se preferir
+            'host'       => env('CPANEL_SFTP_HOST'), // O IP ou domínio do seu servidor
+            'port'       => env('CPANEL_SFTP_PORT', 22),
+            'username'   => env('CPANEL_USERNAME'),
+            'password'   => env('CPANEL_SFTP_PASSWORD'), // Use a senha da conta cPanel
+            // 'privateKey' => env('CPANEL_PRIVATE_KEY_PATH'), // Alternativa à senha
+            
+            // IMPORTANTE: O root é o diretório HOME do seu usuário cPanel
+            'root'       => env('CPANEL_DEPLOY_ROOT'), // Ex: '/home/fabricad'
+            'visibility' => 'public',
+            'directoryVisibility' => 'public',
+        ],
+
     ],
 
     /*

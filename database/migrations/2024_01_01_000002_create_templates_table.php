@@ -11,14 +11,18 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('display_name')->nullable();
             $table->text('description')->nullable();
-            $table->string('category'); // geral, advogados, eventos, medicos, etc
+            $table->string('category')->nullable(); // geral, advogados, eventos, medicos, etc
             $table->string('thumbnail_url')->nullable(); // URL da imagem/preview
+            $table->string('status')->default('inactive'); // 'active', 'inactive'
+            $table->string('github_path')->nullable(); // ex: '/templates/advocacia-classico'
+            $table->json('schema')->nullable();
             
             // Estrutura do template
-            $table->longText('html_content'); // Conteúdo HTML base
-            $table->json('config_schema'); // Schema de configuração (JSON)
-            $table->json('default_config'); // Configuração padrão (JSON)
+            $table->longText('html_content')->nullable(); // Conteúdo HTML base
+            $table->json('config_schema')->nullable();// Schema de configuração (JSON)
+            $table->json('default_config')->nullable(); // Configuração padrão (JSON)
             
             // Exemplo:
             // config_schema: {

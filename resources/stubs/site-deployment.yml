@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  # O nome do serviço é o ID único do site
+  ${SERVICE_NAME}:
+    image: nginx:alpine
+    restart: always
+    networks:
+      - traefik_public
+    volumes:
+      # Monta o diretório com os arquivos do site
+      - ${HOST_VOLUME_PATH}:/usr/share/nginx/html:ro
+    
+    labels:
+      - "traefik.enable=true"
+      
+      # --- Roteador HTTP (para redirecionamento) ---
+      - "traefik.http.routers.${SERVICE_NAME}-http.rule=Host(`${HOST_DO_CLIENTE}`)"
+      - "traefik.http.routers.${SERVICE_NAME}-http.entrypoints=web"
+      
+      # --- Roteador HTTPS (Principal) ---
+      - "traefik.http.routers.${SERVICE_NAME}-https.rule=Host(`${HOST_DO_CLIENTE}`)"
+      - "traefik.http.routers.${SERVICE_NAME}-https.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE_NAME}-https.tls=true"
+      - "traefik.http.routers.${SERVICE_NAME}-https.tls.certresolver=leresolver"
+      
+      # --- Middleware (Redireciona HTTP para HTTPS) ---
+      - "traefik.http.middlewares.ssl-redirect.redirectscheme.scheme=httpsNext"
+      - "traefik.http.routers.${SERVICE_NAME}-http.middlewares=ssl-redirect@docker"
+
+      # --- Serviço ---
+      - "traefik.http.routers.${SERVICE_NAME}-https.service=${SERVICE_NAME}-service"
+      - "traefik.http.services.${SERVICE_NAME}-service.loadbalancer.server.port=80"
+
+networks:
+  traefik_public:
+    external: true

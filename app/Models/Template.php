@@ -21,6 +21,10 @@ class Template extends Model
         'sections',
         'is_active',
         'order',
+        'display_name',
+        'status',
+        'github_path',
+        'schema',
     ];
 
     protected $casts = [
@@ -28,6 +32,7 @@ class Template extends Model
         'default_config' => 'array',
         'sections' => 'array',
         'is_active' => 'boolean',
+        'schema' => 'array',
     ];
 
     // Relações
@@ -63,5 +68,9 @@ class Template extends Model
         return collect($this->default_config)->mapWithKeys(function ($value, $key) {
             return [$key => $value];
         });
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
     }
 }
