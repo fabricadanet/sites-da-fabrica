@@ -8,7 +8,6 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Blade;
 use Livewire\Attributes\On;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Computed; 
 
 class SiteEditor extends Component
 {
@@ -16,7 +15,7 @@ class SiteEditor extends Component
     public array $schema = [];
     public array $formData = [];
 
-    // Esta é a nossa propriedade de preview
+    // Propriedade para o preview
     public string $previewContent = '';
 
     // Para o modal de publicação
@@ -69,56 +68,52 @@ class SiteEditor extends Component
             $bladeContent = file_get_contents($templatePath);
             $html = Blade::render($bladeContent, $this->formData); 
 
-            // ===================================
-            // INÍCIO DA CORREÇÃO (O Erro Atual)
-            // ===================================
-            
-            // Não usamos mais route() aqui. Construímos a URL base manualmente.
-            // A rota de assets é: /template-assets/{templateName}/{assetPath}
-            // O {assetPath} começa com "assets/...", então o prefixo é:
-            
-            $baseUrl = "/template-assets/" . $templateName; // Ex: /template-assets/empresa-multiseccao
-
-            // O str_replace vai transformar:
-            // href="assets/style.css"
-            // EM:
-            // href="/template-assets/empresa-multiseccao/assets/style.css"
-            // O que corresponde perfeitamente à nossa rota de assets.
+            // URL Base de Assets
+            $baseUrl = "/template-assets/" . $templateName;
             
             $html = str_replace(
                 ['href="assets/', 'src="assets/', 'href="./assets/', 'src="./assets/'],
                 [
                     'href="' . $baseUrl . '/assets/', 
                     'src="' . $baseUrl . '/assets/',
-                    'href="' . $baseUrl . '/assets/', // para ./assets/
-                    'src="' . $baseUrl . '/assets/', // para ./assets/
+                    'href="' . $baseUrl . '/assets/',
+                    'src="' . $baseUrl . '/assets/',
                 ],
                 $html
             );
             
-            // ===================================
-            // FIM DA CORREÇÃO
-            // ===================================
-            
             $this->previewContent = $html;
 
         } catch (\Exception $e) {
-            // Captura o erro que você está vendo e o exibe no preview
             $this->previewContent = "Erro ao renderizar: " . $e->getMessage();
         }
     }
 
 
+    public function downloadHtml()
+    {
+        $this->renderPreview();
+        $content = $this->previewContent;
+        $fileName = Str::slug($this->project->name) . '.html';
+        return response()->streamDownload(function () use ($content) {
+            echo $content;
+        }, $fileName);
+    }
+
     public function save()
     {
-        $this->project->update(['json_data' => $this->formData]);
+        $this->renderPreview();
+        // Usando o método save() direto, que é mais robusto
+        $this->project->json_data = $this->formData;
+        $this->project->save();
+
         $this->dispatch('projectUpdated'); 
         $this->dispatch('notify', 'Salvo com sucesso!'); 
     }
     
     public function openPublishModal()
     {
-        $this->save();
+        $this->save(); 
         $this->showDomainModal = true;
     }
 
@@ -130,7 +125,7 @@ class SiteEditor extends Component
             $this->subdomain = null;
         }
         
-        if (empty($this-S>subdomain) && empty($this->customDomain)) {
+        if (empty($this->subdomain) && empty($this->customDomain)) {
              $this->addError('domain', 'Você deve preencher um subdomínio ou um domínio customizado.');
              return;
         }
@@ -156,7 +151,7 @@ class SiteEditor extends Component
 
     private function getDefaultsFromSchema(?array $schema = null): array
     {
-        $schemaToUse = $schema ?? $this->schema; // <--- CORRIGIDO (sem this_>)
+        $schemaToUse = $schema ?? $this->schema; 
 
         if (is_null($schemaToUse) || empty($schemaToUse['fields'])) {
             return [];

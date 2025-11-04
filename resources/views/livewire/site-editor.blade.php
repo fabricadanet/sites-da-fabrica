@@ -8,23 +8,26 @@
     }
 }" @notify.window="notify($event.detail)">
 
-    <x-slot name="header">
+<x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Editando: {{ $project->name }}
             </h2>
             <div>
-                <button wire:click="save" class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-md text-sm font-medium">
+              <button wire:click="save" class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-md text-sm font-medium">
                     Salvar Rascunho
                 </button>
                 <button wire:click="openPublishModal" class="ml-2 inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium">
                     Publicar
                 </button>
-            </div>
+                
+                <button wire:click="downloadHtml" class="ml-2 inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium">
+                    Baixar HTML (Teste)
+                </button>
+                </div>
         </div>
     </x-slot>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-screen">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-screen">
 
         <div class="md:col-span-1 p-4 bg-gray-50 overflow-y-auto">
             <form wire:submit.prevent="save">
@@ -43,7 +46,7 @@
                                     {{ $field['label'] }}
                                 </label>
                                 <input type="text" id="{{ $field['name'] }}" 
-                                       wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
+                                       wire:model.blur="formData.{{ $field['name'] }}"
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             
                             @elseif ($field['type'] === 'textarea')
@@ -51,7 +54,7 @@
                                     {{ $field['label'] }}
                                 </label>
                                 <textarea id="{{ $field['name'] }}" rows="4"
-                                          wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
+                                          wire:model.blur="formData.{{ $field['name'] }}"
                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
                             
                             @elseif ($field['type'] === 'color')
@@ -59,7 +62,7 @@
                                     {{ $field['label'] }}
                                 </label>
                                 <input type="color" id="{{ $field['name'] }}" 
-                                       wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
+                                       wire:model.blur="formData.{{ $field['name'] }}"
                                        class="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm">
 
                             @elseif ($field['type'] === 'image_url')
@@ -67,7 +70,7 @@
                                     {{ $field['label'] }}
                                 </label>
                                 <input type="text" id="{{ $field['name'] }}" 
-                                       wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
+                                       wire:model.blur="formData.{{ $field['name'] }}"
                                        placeholder="https://url-da-sua-imagem.com/imagem.png"
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <span class="text-xs text-gray-500">Cole a URL de uma imagem hospedada.</span>
