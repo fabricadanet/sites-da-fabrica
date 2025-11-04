@@ -64,6 +64,7 @@ class TemplateSyncService
             Template::updateOrCreate(
                 ['name' => $templateName],
                 [
+                    'slug' => $templateName,
                     'display_name' => $schema['name'] ?? $templateName,
                     'description' => $schema['description'] ?? null,
                     'category' => $schema['category'] ?? 'Geral',

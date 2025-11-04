@@ -31,27 +31,41 @@
                 <div class="space-y-4">
                     
                     @foreach ($schema['fields'] ?? [] as $field)
-                        <div wire:key="{{ $field['name'] }}">
-                            <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">
-                                {{ $field['label'] }}
-                            </label>
+                        <div wire:key="{{ $field['name'] ?? $field['label'] }}">
                             
-                            @if ($field['type'] === 'text')
+                            @if ($field['type'] === 'heading')
+                                <h3 class="text-lg font-semibold text-gray-900 pt-4 border-b border-gray-300 mb-2">
+                                    {{ $field['label'] }}
+                                </h3>
+                            
+                            @elseif ($field['type'] === 'text')
+                                <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">
+                                    {{ $field['label'] }}
+                                </label>
                                 <input type="text" id="{{ $field['name'] }}" 
                                        wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             
                             @elseif ($field['type'] === 'textarea')
+                                <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">
+                                    {{ $field['label'] }}
+                                </label>
                                 <textarea id="{{ $field['name'] }}" rows="4"
                                           wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
                             
                             @elseif ($field['type'] === 'color')
+                                <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">
+                                    {{ $field['label'] }}
+                                </label>
                                 <input type="color" id="{{ $field['name'] }}" 
                                        wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
                                        class="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm">
 
-                            @elseif ($field['type'] === 'image_upload')
+                            @elseif ($field['type'] === 'image_url')
+                                <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">
+                                    {{ $field['label'] }}
+                                </label>
                                 <input type="text" id="{{ $field['name'] }}" 
                                        wire:model.live.debounce.300ms="formData.{{ $field['name'] }}"
                                        placeholder="https://url-da-sua-imagem.com/imagem.png"
@@ -60,21 +74,22 @@
                             @endif
                         </div>
                     @endforeach
-                </div>
+                    
+                    </div>
             </form>
         </div>
 
-        <div class="md:col-span-2 p-4 overflow-y-auto">
-            <div class="shadow-lg rounded-lg overflow-hidden" wire:ignore>
-                <iframe 
-                    class="w-full h-full min-h-[80vh] border-0" 
-                    :srcdoc="$wire.get('previewHtml')"
-                    x-data 
-                    x-init="$watch('$wire.previewHtml', value => $el.srcdoc = value)">
-                </iframe>
+         <div class="md:col-span-2 p-4 overflow-y-auto">
+                    <div class="shadow-lg rounded-lg overflow-hidden" wire:ignore>
+                        <iframe 
+                            class="w-full h-full min-h-[80vh] border-0" 
+                            :srcdoc="$wire.previewContent"
+                            x-data 
+                            x-init="$watch('$wire.previewContent', value => $el.srcdoc = value)">
+                        </iframe>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
     <x-dialog-modal wire:model.live="showDomainModal">
         <x-slot name="title">

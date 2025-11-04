@@ -47,7 +47,7 @@
         <!-- ⭐ LIVEWIRE SCRIPTS - CRÍTICO: VEM ANTES DE SCRIPTS CUSTOM ⭐ -->
         @livewireScripts
          <!-- Alpine.js OBRIGATÓRIO -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
 
         <!-- SEU JS CUSTOM - VEM DEPOIS DO LIVEWIRE -->
         <script>

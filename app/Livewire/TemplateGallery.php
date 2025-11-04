@@ -31,9 +31,24 @@ class TemplateGallery extends Component
         return $this->redirectRoute('projects.edit', ['project' => $project]);
     }
 
-    private function getDefaultsFromSchema(array $schema): array
+/**
+     * Helper para preencher o formulário com os valores padrão
+     * @param array|null $schema O schema do template (agora aceita nulo)
+     * @return array
+     */
+    private function getDefaultsFromSchema(?array $schema): array
     {
-        return collect($schema['fields'] ?? [])
+        // Se o schema for nulo ou não tiver campos, retorna um array vazio.
+        if (is_null($schema) || empty($schema['fields'])) {
+            return [];
+        }
+
+        // Se for válido, continua...
+        return collect($schema['fields'])
+            // ----> ADICIONE ESTE FILTRO <----
+            // Ignora campos que não são de input (como 'heading')
+            ->where('type', '!=', 'heading') 
+            // -------------------------------
             ->mapWithKeys(fn ($field) => [$field['name'] => $field['default'] ?? ''])
             ->all();
     }
